@@ -18,8 +18,10 @@ soup = BeautifulSoup(response.text, "html.parser")
 price_wrapper = soup.select_one(".mds_price_wrapper")
 
 if price_wrapper:
-    price_element = price_wrapper.select_one(
-        ".mds_price_value .woocommerce-Price-amount"
+    print("Prisområdets HTML:", str(price_wrapper)[:1500])
+price_element = price_wrapper.select_one(
+    ".mds_price_value .woocommerce-Price-amount, .mds_price_value .amount"
+)
     )
 
     if price_element:
