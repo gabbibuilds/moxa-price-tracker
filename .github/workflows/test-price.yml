@@ -1,0 +1,24 @@
+
+name: Testa Moxa Price Tracker
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test-price:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Hämta projektets filer
+        uses: actions/checkout@v4
+
+      - name: Installera Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Installera bibliotek
+        run: pip install requests beautifulsoup4
+
+      - name: Kör prisprogrammet
+        run: python price_tracker.py
