@@ -1,8 +1,9 @@
 
-import requests
 import csv
 from datetime import datetime, timezone
 from pathlib import Path
+
+import requests
 from bs4 import BeautifulSoup
 
 # Produkten vi bevakar
@@ -17,7 +18,7 @@ response.raise_for_status()
 
 soup = BeautifulSoup(response.text, "html.parser")
 
-# Hitta aktuellt produktpris
+# Hitta produktens aktuella pris
 price_wrapper = soup.select_one(".mds_price_wrapper")
 
 if not price_wrapper:
@@ -35,7 +36,7 @@ price_text = price_element.get_text(strip=True)
 price_text = price_text.replace("€", "").replace(",", ".").strip()
 price = float(price_text)
 
-# Skapa en prispost med dagens datum
+# Skapa dagens prisregistrering
 date = datetime.now(timezone.utc).strftime("%Y-%m-%d")
 
 price_record = {
@@ -49,20 +50,52 @@ price_record = {
     "url": url
 }
 
-# Spara prisposten i en CSV-fil
 file_path = Path("price_history.csv")
-file_exists = file_path.exists()
+fieldnames = list(price_record.keys())
 
-with file_path.open("a", newline="", encoding="utf-8") as file:
+# Las in tidigare prishistorik
+history = []
+
+if file_path.exists():
+    with file_path.open(
+        "r", newline="", encoding="utf-8"
+    ) as file:
+        reader = csv.DictReader(file)
+        history = list(reader)
+
+# Ta bort eventuella tidigare registreringar
+# for samma produkt, butik och datum
+history = [
+    row for row in history
+    if not (
+        row["date"] == price_record["date"]
+        and row["sku"] == price_record["sku"]
+        and row["retailer"] == price_record["retailer"]
+    )
+]
+
+# Lagg till den senaste prisregistreringen
+history.append(price_record)
+
+# Sortera historiken efter datum
+history.sort(
+    key=lambda row: (
+        row["date"],
+        row["sku"],
+        row["retailer"]
+    )
+)
+
+# Spara hela historiken
+with file_path.open(
+    "w", newline="", encoding="utf-8"
+) as file:
     writer = csv.DictWriter(
         file,
-        fieldnames=price_record.keys()
+        fieldnames=fieldnames
     )
-
-    if not file_exists:
-        writer.writeheader()
-
-    writer.writerow(price_record)
+    writer.writeheader()
+    writer.writerows(history)
 
 print("-----------------------------")
 print("MOXA PRICE TRACKER")
@@ -72,4 +105,5 @@ print("Butik:", price_record["retailer"])
 print("Pris:", price_record["price"], "EUR")
 print("Datum:", price_record["date"])
 print("Sparat i:", file_path)
+print("Antal prisregistreringar:", len(history))
 print("-----------------------------")
