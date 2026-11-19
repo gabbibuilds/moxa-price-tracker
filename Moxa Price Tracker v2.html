@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Moxa Price Tracker v2</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{
+  --accent:#951111; --accent-soft:#f7e6e6; --bg:#f7f6f4; --card:#ffffff; --text:#1d1b1b; --muted:#6b6666; --line:#e6e2e0; --good:#1f6b3a;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--accent:#e06a6a;--accent-soft:#3a1c1c;--bg:#161414;--card:#201d1d;--text:#f1eeee;--muted:#a8a1a1;--line:#352f2f;--good:#6fcf97}}
+:root[data-theme="dark"]{color-scheme:dark;--accent:#e06a6a;--accent-soft:#3a1c1c;--bg:#161414;--card:#201d1d;--text:#f1eeee;--muted:#a8a1a1;--line:#352f2f;--good:#6fcf97}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 "IBM Plex Sans",system-ui,sans-serif}
+.wrap{max-width:1180px;margin:0 auto;padding:20px 16px 40px}
+header{margin-bottom:14px;border-left:6px solid var(--accent);padding-left:14px}
+h1{font-size:1.6rem;line-height:1.2;margin:0;font-weight:600}
+header p{margin:2px 0 0;color:var(--muted);font-size:.9rem}
+.banner{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 14px;margin-bottom:16px;font-size:.88rem}
+.src{font-weight:600;border-radius:99px;padding:2px 10px;border:1px solid var(--line)}
+.src.file{color:var(--good);border-color:var(--good)}
+.src.emb{color:var(--accent);border-color:var(--accent)}
+.warn{flex-basis:100%;color:var(--accent)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:16px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:14px 16px}
+.stat b{display:block;font-size:1.7rem;font-weight:600;line-height:1.2}
+.stat span{color:var(--muted);font-size:.85rem}
+.stat.hot{border-color:var(--accent);background:var(--accent-soft)}
+.stat.hot b{color:var(--accent)}
+.filters{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px}
+.filters input,.filters select,.filters button{font:inherit;color:var(--text);background:var(--card);border:1px solid var(--line);border-radius:8px;padding:9px 12px;min-height:40px}
+.filters input{flex:1 1 220px}
+.filters select{flex:1 1 160px}
+.filters button{cursor:pointer;color:var(--accent);border-color:var(--accent)}
+.filters :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.tablebox{background:var(--card);border:1px solid var(--line);border-radius:8px;overflow-x:auto;max-width:100%}
+table{border-collapse:collapse;width:100%;min-width:860px}
+th,td{padding:11px 14px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
+th:first-child,td:first-child{text-align:left;position:sticky;left:0;background:var(--card);white-space:normal;min-width:210px}
+th{font-weight:600;font-size:.85rem;color:var(--muted);background:var(--card)}
+tbody tr:last-child td{border-bottom:0}
+td small{display:block;color:var(--muted);font-size:.78rem}
+.name{font-weight:500}
+.cat{color:var(--muted);font-size:.78rem}
+.our{font-weight:600}
+.low{background:var(--accent-soft);color:var(--accent);font-weight:600}
+.low small{color:var(--accent)}
+.na{color:var(--muted)}
+.chip{display:inline-block;border-radius:99px;padding:2px 10px;font-weight:600;font-size:.85rem;border:1px solid var(--line)}
+.chip.bad{background:var(--accent);border-color:var(--accent);color:#fff}
+.chip.ok{color:var(--good);border-color:var(--good)}
+.empty{padding:32px;text-align:center;color:var(--muted)}
+.note{margin-top:14px;color:var(--muted);font-size:.82rem}
+.note i{display:inline-block;width:12px;height:12px;background:var(--accent-soft);border:1px solid var(--accent);border-radius:3px;vertical-align:-1px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Moxa Price Tracker</h1>
+    <p>Version 2. Jämför våra priser med europeiska återförsäljare. Exempeldata, inga riktiga priser.</p>
+  </header>
+
+  <div class="banner" id="banner">Läser in data …</div>
+  <section class="stats" id="stats" aria-live="polite"></section>
+
+  <section class="filters">
+    <input id="q" type="search" placeholder="Sök produkt eller artikelnummer" aria-label="Sök">
+    <select id="cat" aria-label="Produktkategori"></select>
+    <select id="ret" aria-label="Återförsäljare"></select>
+    <button id="reset" type="button">Rensa filter</button>
+  </section>
+
+  <div class="tablebox"><table>
+    <thead><tr id="head"></tr></thead>
+    <tbody id="body"></tbody>
+  </table></div>
+  <div class="empty" id="empty" hidden>Inga produkter matchar. Rensa filtren eller prova en annan sökning.</div>
+  <p class="note"><i></i> Markerad cell: återförsäljaren har lägre pris än vi. Prisskillnad = lägsta konkurrentpris jämfört med vårt pris.</p>
+  <p class="note" id="fxnote"></p>
+</div>
+
+<!-- Inbäddad reservkopia av products.json. Används när filen inte kan läsas (till exempel i Claude). -->
+<script type="application/json" id="embedded">{"updatedAt":"2026-11-19","note":"Påhittade exempelpriser. Inga riktiga priser.","settings":{"baseCurrency":"EUR","ratesDate":"2026-11-19","exchangeRates":{"EUR":1,"SEK":11.0,"GBP":0.86}},"retailers":[{"id":"dustin","name":"Dustin","country":"SE","vatRate":0.25},{"id":"elfa-distrelec","name":"Elfa Distrelec","country":"SE","vatRate":0.25},{"id":"rs-components","name":"RS Components","country":"GB","vatRate":0.2},{"id":"farnell","name":"Farnell","country":"GB","vatRate":0.2},{"id":"conrad","name":"Conrad","country":"DE","vatRate":0.19}],"products":[{"sku":"EDS-205A","name":"Switch 5 portar, ohanterad","category":"Switchar","ourPrice":{"amount":62.0,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},"competitorPrices":[{"retailerId":"dustin","amount":58.9,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},{"retailerId":"elfa-distrelec","amount":64.5,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},{"retailerId":"rs-components","amount":61.2,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},{"retailerId":"farnell","amount":66.0,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},{"retailerId":"conrad","amount":59.8,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"}]},{"sku":"EDS-308","name":"Switch 8 portar, ohanterad","category":"Switchar","ourPrice":{"amount":89.0,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},"competitorPrices":[{"retailerId":"dustin","amount":92.4,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},{"retailerId":"elfa-distrelec","amount":1197.63,"currency":"SEK","vatIncluded":true,"date":"2026-11-19"},{"retailerId":"rs-components","amount":90.5,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},{"retailerId":"conrad","amount":94.0,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"}]},{"sku":"EDS-508A","name":"Switch 8 portar, hanterad","category":"Switchar","ourPrice":{"amount":215.0,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},"competitorPrices":[{"retailerId":"dustin","amount":228.0,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},{"retailerId":"elfa-distrelec","amount":219.9,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},{"retailerId":"rs-components","amount":209.5,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},{"retailerId":"farnell","amount":231.0,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"}]},{"sku":"NPort 5110","name":"Seriell enhetsserver, 1 port","category":"Seriella enheter","ourPrice":{"amount":74.0,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},"competitorPrices":[{"retailerId":"dustin","amount":79.9,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},{"retailerId":"elfa-distrelec","amount":71.8,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},{"retailerId":"rs-components","amount":78.0,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},{"retailerId":"farnell","amount":82.5,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},{"retailerId":"conrad","amount":76.4,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"}]},{"sku":"NPort 5150A","name":"Seriell enhetsserver, 1 port, PoE","category":"Seriella enheter","ourPrice":{"amount":98.0,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},"competitorPrices":[{"retailerId":"dustin","amount":104.0,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},{"retailerId":"rs-components","amount":101.3,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},{"retailerId":"farnell","amount":106.9,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},{"retailerId":"conrad","amount":99.5,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"}]},{"sku":"MGate MB3170","name":"Modbus-gateway, 2 portar","category":"Gateways","ourPrice":{"amount":355.0,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},"competitorPrices":[{"retailerId":"dustin","amount":369.0,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},{"retailerId":"elfa-distrelec","amount":361.5,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},{"retailerId":"rs-components","amount":372.0,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},{"retailerId":"farnell","amount":349.9,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},{"retailerId":"conrad","amount":380.0,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"}]},{"sku":"ioLogik E1212","name":"Fjärr-I/O, 8 DI + 8 DIO","category":"Fjärr-I/O","ourPrice":{"amount":186.0,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},"competitorPrices":[{"retailerId":"dustin","amount":198.0,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},{"retailerId":"elfa-distrelec","amount":190.4,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},{"retailerId":"farnell","amount":201.0,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},{"retailerId":"conrad","amount":183.9,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"}]},{"sku":"AWK-1137C","name":"Trådlös klient, industriell","category":"Trådlöst","ourPrice":{"amount":312.0,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},"competitorPrices":[{"retailerId":"dustin","amount":334.0,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},{"retailerId":"elfa-distrelec","amount":325.0,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},{"retailerId":"rs-components","amount":318.6,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},{"retailerId":"farnell","amount":340.0,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},{"retailerId":"conrad","amount":392.58,"currency":"EUR","vatIncluded":true,"date":"2026-11-19"}]}]}</script>
+
+<script>
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+let D, BASE = "EUR";
+
+const fmt = (n, cur) => { try { return n.toLocaleString("sv-SE",{style:"currency",currency:cur}); } catch(e){ return n + " " + cur; } };
+const pct = n => (n>0?"+":n<0?"−":"") + Math.abs(n).toLocaleString("sv-SE",{minimumFractionDigits:1,maximumFractionDigits:1}) + " %";
+
+/* Räknar om ett pris till basvalutan (EUR) exklusive moms. Returnerar {ok, v, conv} eller {ok:false, why}. */
+function norm(p, retailer){
+  const rates = D.settings.exchangeRates;
+  if(typeof p.amount !== "number" || !p.currency) return {ok:false, why:"Belopp eller valuta saknas"};
+  const rate = rates[p.currency];
+  if(!rate) return {ok:false, why:"Växelkurs för " + p.currency + " saknas"};
+  if(typeof p.vatIncluded !== "boolean") return {ok:false, why:"Momsstatus saknas"};
+  let net = p.amount;
+  if(p.vatIncluded){
+    const vr = p.vatRate ?? retailer.vatRate;
+    if(vr == null) return {ok:false, why:"Momssats saknas"};
+    net = p.amount / (1 + vr);
+  }
+  return {ok:true, v:net / rate, conv: p.currency !== BASE || p.vatIncluded};
+}
+
+function valid(j){
+  return j && Array.isArray(j.retailers) && Array.isArray(j.products) && j.settings && j.settings.exchangeRates && j.settings.baseCurrency;
+}
+
+async function load(){
+  let data = null, source = "emb", warn = "";
+  try{
+    const ctl = new AbortController(), t = setTimeout(()=>ctl.abort(), 3000);
+    const res = await fetch("products.json", {signal:ctl.signal, cache:"no-cache"});
+    clearTimeout(t);
+    if(res.ok){
+      const j = await res.json();
+      if(valid(j)){ data = j; source = "file"; }
+      else warn = "products.json hittades men har fel format. Visar inbäddad exempeldata.";
+    }
+  }catch(e){ /* filen kan inte läsas här: använd inbäddad data */ }
+  if(!data) data = JSON.parse($("embedded").textContent);
+  D = data; BASE = D.settings.baseCurrency;
+
+  const date = new Date(D.updatedAt + "T00:00:00").toLocaleDateString("sv-SE",{day:"numeric",month:"long",year:"numeric"});
+  $("banner").innerHTML =
+    `<span class="src ${source}">${source==="file" ? "Data från products.json" : "Inbäddad exempeldata"}</span>` +
+    `<span>Priser uppdaterade ${esc(date)}</span>` +
+    `<span>Jämförs i ${esc(BASE)} exklusive moms</span>` +
+    (source==="emb" ? `<span class="na">products.json används automatiskt när appen ligger på GitHub Pages.</span>` : "") +
+    (warn ? `<span class="warn">${esc(warn)}</span>` : "");
+  $("fxnote").textContent = "Priser i annan valuta eller inklusive moms räknas om (⇄) med växelkurserna i datafilen" +
+    (D.settings.ratesDate ? " (kurser från " + D.settings.ratesDate + ", exempelvärden)" : "") +
+    ". Saknas kurs eller momssats jämförs priset inte.";
+
+  const cats = [...new Set(D.products.map(x=>x.category))];
+  $("cat").innerHTML = '<option value="">Alla kategorier</option>' + cats.map(c=>`<option>${esc(c)}</option>`).join("");
+  $("ret").innerHTML = '<option value="">Alla återförsäljare</option>' + D.retailers.map(r=>`<option value="${esc(r.id)}">${esc(r.name)}</option>`).join("");
+  render();
+}
+
+function render(){
+  const q = $("q").value.trim().toLowerCase(), cat = $("cat").value, ret = $("ret").value;
+  const cols = D.retailers.filter(r => !ret || r.id === ret);
+  $("head").innerHTML = "<th>Produkt</th><th>Vårt pris</th>" + cols.map(r=>`<th>${esc(r.name)}</th>`).join("") + "<th>Prisskillnad</th>";
+
+  const rows = D.products.filter(x => (!cat || x.category===cat) && (!q || (x.name+" "+x.sku+" "+x.category).toLowerCase().includes(q)));
+  let compared=0, cheaper=0, diffSum=0, diffN=0, excluded=0;
+
+  $("body").innerHTML = rows.map(x=>{
+    const our = norm(x.ourPrice, {});
+    const byR = {};
+    (x.competitorPrices||[]).forEach(p => byR[p.retailerId] = p);
+    const vals = [];
+    const cells = cols.map(r=>{
+      const p = byR[r.id];
+      if(!p) return '<td class="na">Saknas</td>';
+      const n = norm(p, r);
+      if(!n.ok){ excluded++; return `<td class="na">${esc(fmt(p.amount,p.currency))}<small>Kan ej jämföras</small><small>${esc(n.why)}</small></td>`; }
+      vals.push(n.v);
+      const info = n.conv ? `<small>⇄ ${p.vatIncluded?"inkl. moms, ":""}≈ ${fmt(n.v,BASE)} ex moms</small>` : "";
+      if(!our.ok) return `<td>${fmt(p.amount,p.currency)}${info}</td>`;
+      const d = (n.v-our.v)/our.v*100, low = n.v < our.v;
+      return `<td class="${low?"low":""}">${low?"▼ ":""}${fmt(p.amount,p.currency)}<small>${pct(d)}</small>${info}</td>`;
+    }).join("");
+
+    let chip = '<span class="na">–</span>';
+    if(our.ok && vals.length){
+      const best = Math.min(...vals), diff = (best-our.v)/our.v*100;
+      compared += vals.length; diffSum += diff; diffN++; if(best < our.v) cheaper++;
+      chip = `<span class="chip ${diff<0?"bad":"ok"}">${pct(diff)}</span>`;
+    }
+    return `<tr><td><span class="name">${esc(x.name)}</span><small>${esc(x.sku)}</small><span class="cat">${esc(x.category)}</span></td><td class="our">${fmt(x.ourPrice.amount,x.ourPrice.currency)}</td>${cells}<td>${chip}</td></tr>`;
+  }).join("");
+
+  $("empty").hidden = rows.length > 0;
+  const avg = diffN ? pct(diffSum/diffN) : "–";
+  $("stats").innerHTML =
+    `<div class="stat"><b>${rows.length}</b><span>Produkter visas av ${D.products.length}</span></div>
+     <div class="stat"><b>${compared}</b><span>Prisjämförelser${excluded ? " ("+excluded+" kan ej jämföras)" : ""}</span></div>
+     <div class="stat ${cheaper?"hot":""}"><b>${cheaper}</b><span>Produkter där en konkurrent är billigare</span></div>
+     <div class="stat"><b>${avg}</b><span>Genomsnittlig skillnad mot lägsta konkurrent</span></div>`;
+}
+
+["q","cat","ret"].forEach(id => $(id).addEventListener("input", () => D && render()));
+$("reset").addEventListener("click", () => { $("q").value=""; $("cat").value=""; $("ret").value=""; D && render(); });
+load();
+</script>
+</body>
+</html>
