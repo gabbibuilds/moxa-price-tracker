@@ -15,14 +15,13 @@ soup = BeautifulSoup(response.text, "html.parser")
 
 print("HTTP-status:", response.status_code)
 
-# Leta efter strukturerad produktinformation
-scripts = soup.find_all(
-    "script",
-    type="application/ld+json"
-)
+# Leta efter HTML-element med "price" i klassnamnet
+price_elements = soup.select('[class*="price"]')
 
-print("Antal JSON-LD-block:", len(scripts))
+print("Antal priselement:", len(price_elements))
 
-for i, script in enumerate(scripts, start=1):
-    print(f"\nJSON-LD-block {i}:")
-    print(script.get_text(strip=True)[:2000])
+# Visa de första 10 träffarna
+for i, element in enumerate(price_elements[:10], start=1):
+    print(f"\nPriselement {i}:")
+    print("HTML:", str(element)[:500])
+    print("Text:", element.get_text(" ", strip=True)[:200])
