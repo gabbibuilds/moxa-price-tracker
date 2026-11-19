@@ -2,6 +2,7 @@
 import requests
 from bs4 import BeautifulSoup
 
+# Produkten vi bevakar
 url = "https://moxa.distry.shop/dispositivi-server-e-seriali/nport-5110-moxa/"
 
 response = requests.get(
@@ -13,15 +14,23 @@ response.raise_for_status()
 
 soup = BeautifulSoup(response.text, "html.parser")
 
-print("HTTP-status:", response.status_code)
+# Leta efter priset i produktens huvudområde
+price_wrapper = soup.select_one(".mds_price_wrapper")
 
-# Leta efter HTML-element med "price" i klassnamnet
-price_elements = soup.select('[class*="price"]')
+if price_wrapper:
+    price_element = price_wrapper.select_one(
+        ".mds_price_value .woocommerce-Price-amount"
+    )
 
-print("Antal priselement:", len(price_elements))
+    if price_element:
+        price = price_element.get_text(strip=True)
+        price = price.replace("€", "").strip()
 
-# Visa de första 10 träffarna
-for i, element in enumerate(price_elements[:10], start=1):
-    print(f"\nPriselement {i}:")
-    print("HTML:", str(element)[:500])
-    print("Text:", element.get_text(" ", strip=True)[:200])
+        print("Produkt: Moxa NPort 5110")
+        print("Butik: Moxa Distry Shop")
+        print("Pris:", price, "EUR")
+        print("Moms: Exkl. moms")
+    else:
+        print("Kunde inte hitta aktuellt pris.")
+else:
+    print("Kunde inte hitta produktens prisområde.")
