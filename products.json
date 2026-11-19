@@ -1,0 +1,403 @@
+{
+  "updatedAt": "2026-11-19",
+  "note": "Påhittade exempelpriser. Inga riktiga priser.",
+  "settings": {
+    "baseCurrency": "EUR",
+    "ratesDate": "2026-11-19",
+    "exchangeRates": {
+      "EUR": 1,
+      "SEK": 11.0,
+      "GBP": 0.86
+    }
+  },
+  "retailers": [
+    {
+      "id": "dustin",
+      "name": "Dustin",
+      "country": "SE",
+      "vatRate": 0.25
+    },
+    {
+      "id": "elfa-distrelec",
+      "name": "Elfa Distrelec",
+      "country": "SE",
+      "vatRate": 0.25
+    },
+    {
+      "id": "rs-components",
+      "name": "RS Components",
+      "country": "GB",
+      "vatRate": 0.2
+    },
+    {
+      "id": "farnell",
+      "name": "Farnell",
+      "country": "GB",
+      "vatRate": 0.2
+    },
+    {
+      "id": "conrad",
+      "name": "Conrad",
+      "country": "DE",
+      "vatRate": 0.19
+    }
+  ],
+  "products": [
+    {
+      "sku": "EDS-205A",
+      "name": "Switch 5 portar, ohanterad",
+      "category": "Switchar",
+      "ourPrice": {
+        "amount": 62.0,
+        "currency": "EUR",
+        "vatIncluded": false,
+        "date": "2026-11-19"
+      },
+      "competitorPrices": [
+        {
+          "retailerId": "dustin",
+          "amount": 58.9,
+          "currency": "EUR",
+          "vatIncluded": false,
+          "date": "2026-11-19"
+        },
+        {
+          "retailerId": "elfa-distrelec",
+          "amount": 64.5,
+          "currency": "EUR",
+          "vatIncluded": false,
+          "date": "2026-11-19"
+        },
+        {
+          "retailerId": "rs-components",
+          "amount": 61.2,
+          "currency": "EUR",
+          "vatIncluded": false,
+          "date": "2026-11-19"
+        },
+        {
+          "retailerId": "farnell",
+          "amount": 66.0,
+          "currency": "EUR",
+          "vatIncluded": false,
+          "date": "2026-11-19"
+        },
+        {
+          "retailerId": "conrad",
+          "amount": 59.8,
+          "currency": "EUR",
+          "vatIncluded": false,
+          "date": "2026-11-19"
+        }
+      ]
+    },
+    {
+      "sku": "EDS-308",
+      "name": "Switch 8 portar, ohanterad",
+      "category": "Switchar",
+      "ourPrice": {
+        "amount": 89.0,
+        "currency": "EUR",
+        "vatIncluded": false,
+        "date": "2026-11-19"
+      },
+      "competitorPrices": [
+        {
+          "retailerId": "dustin",
+          "amount": 92.4,
+          "currency": "EUR",
+          "vatIncluded": false,
+          "date": "2026-11-19"
+        },
+        {
+          "retailerId": "elfa-distrelec",
+          "amount": 1197.63,
+          "currency": "SEK",
+          "vatIncluded": true,
+          "date": "2026-11-19"
+        },
+        {
+          "retailerId": "rs-components",
+          "amount": 90.5,
+          "currency": "EUR",
+          "vatIncluded": false,
+          "date": "2026-11-19"
+        },
+        {
+          "retailerId": "conrad",
+          "amount": 94.0,
+          "currency": "EUR",
+          "vatIncluded": false,
+          "date": "2026-11-19"
+        }
+      ]
+    },
+    {
+      "sku": "EDS-508A",
+      "name": "Switch 8 portar, hanterad",
+      "category": "Switchar",
+      "ourPrice": {
+        "amount": 215.0,
+        "currency": "EUR",
+        "vatIncluded": false,
+        "date": "2026-11-19"
+      },
+      "competitorPrices": [
+        {
+          "retailerId": "dustin",
+          "amount": 228.0,
+          "currency": "EUR",
+          "vatIncluded": false,
+          "date": "2026-11-19"
+        },
+        {
+          "retailerId": "elfa-distrelec",
+          "amount": 219.9,
+          "currency": "EUR",
+          "vatIncluded": false,
+          "date": "2026-11-19"
+        },
+        {
+          "retailerId": "rs-components",
+          "amount": 209.5,
+          "currency": "EUR",
+          "vatIncluded": false,
+          "date": "2026-11-19"
+        },
+        {
+          "retailerId": "farnell",
+          "amount": 231.0,
+          "currency": "EUR",
+          "vatIncluded": false,
+          "date": "2026-11-19"
+        }
+      ]
+    },
+    {
+      "sku": "NPort 5110",
+      "name": "Seriell enhetsserver, 1 port",
+      "category": "Seriella enheter",
+      "ourPrice": {
+        "amount": 74.0,
+        "currency": "EUR",
+        "vatIncluded": false,
+        "date": "2026-11-19"
+      },
+      "competitorPrices": [
+        {
+          "retailerId": "dustin",
+          "amount": 79.9,
+          "currency": "EUR",
+          "vatIncluded": false,
+          "date": "2026-11-19"
+        },
+        {
+          "retailerId": "elfa-distrelec",
+          "amount": 71.8,
+          "currency": "EUR",
+          "vatIncluded": false,
+          "date": "2026-11-19"
+        },
+        {
+          "retailerId": "rs-components",
+          "amount": 78.0,
+          "currency": "EUR",
+          "vatIncluded": false,
+          "date": "2026-11-19"
+        },
+        {
+          "retailerId": "farnell",
+          "amount": 82.5,
+          "currency": "EUR",
+          "vatIncluded": false,
+          "date": "2026-11-19"
+        },
+        {
+          "retailerId": "conrad",
+          "amount": 76.4,
+          "currency": "EUR",
+          "vatIncluded": false,
+          "date": "2026-11-19"
+        }
+      ]
+    },
+    {
+      "sku": "NPort 5150A",
+      "name": "Seriell enhetsserver, 1 port, PoE",
+      "category": "Seriella enheter",
+      "ourPrice": {
+        "amount": 98.0,
+        "currency": "EUR",
+        "vatIncluded": false,
+        "date": "2026-11-19"
+      },
+      "competitorPrices": [
+        {
+          "retailerId": "dustin",
+          "amount": 104.0,
+          "currency": "EUR",
+          "vatIncluded": false,
+          "date": "2026-11-19"
+        },
+        {
+          "retailerId": "rs-components",
+          "amount": 101.3,
+          "currency": "EUR",
+          "vatIncluded": false,
+          "date": "2026-11-19"
+        },
+        {
+          "retailerId": "farnell",
+          "amount": 106.9,
+          "currency": "EUR",
+          "vatIncluded": false,
+          "date": "2026-11-19"
+        },
+        {
+          "retailerId": "conrad",
+          "amount": 99.5,
+          "currency": "EUR",
+          "vatIncluded": false,
+          "date": "2026-11-19"
+        }
+      ]
+    },
+    {
+      "sku": "MGate MB3170",
+      "name": "Modbus-gateway, 2 portar",
+      "category": "Gateways",
+      "ourPrice": {
+        "amount": 355.0,
+        "currency": "EUR",
+        "vatIncluded": false,
+        "date": "2026-11-19"
+      },
+      "competitorPrices": [
+        {
+          "retailerId": "dustin",
+          "amount": 369.0,
+          "currency": "EUR",
+          "vatIncluded": false,
+          "date": "2026-11-19"
+        },
+        {
+          "retailerId": "elfa-distrelec",
+          "amount": 361.5,
+          "currency": "EUR",
+          "vatIncluded": false,
+          "date": "2026-11-19"
+        },
+        {
+          "retailerId": "rs-components",
+          "amount": 372.0,
+          "currency": "EUR",
+          "vatIncluded": false,
+          "date": "2026-11-19"
+        },
+        {
+          "retailerId": "farnell",
+          "amount": 349.9,
+          "currency": "EUR",
+          "vatIncluded": false,
+          "date": "2026-11-19"
+        },
+        {
+          "retailerId": "conrad",
+          "amount": 380.0,
+          "currency": "EUR",
+          "vatIncluded": false,
+          "date": "2026-11-19"
+        }
+      ]
+    },
+    {
+      "sku": "ioLogik E1212",
+      "name": "Fjärr-I/O, 8 DI + 8 DIO",
+      "category": "Fjärr-I/O",
+      "ourPrice": {
+        "amount": 186.0,
+        "currency": "EUR",
+        "vatIncluded": false,
+        "date": "2026-11-19"
+      },
+      "competitorPrices": [
+        {
+          "retailerId": "dustin",
+          "amount": 198.0,
+          "currency": "EUR",
+          "vatIncluded": false,
+          "date": "2026-11-19"
+        },
+        {
+          "retailerId": "elfa-distrelec",
+          "amount": 190.4,
+          "currency": "EUR",
+          "vatIncluded": false,
+          "date": "2026-11-19"
+        },
+        {
+          "retailerId": "farnell",
+          "amount": 201.0,
+          "currency": "EUR",
+          "vatIncluded": false,
+          "date": "2026-11-19"
+        },
+        {
+          "retailerId": "conrad",
+          "amount": 183.9,
+          "currency": "EUR",
+          "vatIncluded": false,
+          "date": "2026-11-19"
+        }
+      ]
+    },
+    {
+      "sku": "AWK-1137C",
+      "name": "Trådlös klient, industriell",
+      "category": "Trådlöst",
+      "ourPrice": {
+        "amount": 312.0,
+        "currency": "EUR",
+        "vatIncluded": false,
+        "date": "2026-11-19"
+      },
+      "competitorPrices": [
+        {
+          "retailerId": "dustin",
+          "amount": 334.0,
+          "currency": "EUR",
+          "vatIncluded": false,
+          "date": "2026-11-19"
+        },
+        {
+          "retailerId": "elfa-distrelec",
+          "amount": 325.0,
+          "currency": "EUR",
+          "vatIncluded": false,
+          "date": "2026-11-19"
+        },
+        {
+          "retailerId": "rs-components",
+          "amount": 318.6,
+          "currency": "EUR",
+          "vatIncluded": false,
+          "date": "2026-11-19"
+        },
+        {
+          "retailerId": "farnell",
+          "amount": 340.0,
+          "currency": "EUR",
+          "vatIncluded": false,
+          "date": "2026-11-19"
+        },
+        {
+          "retailerId": "conrad",
+          "amount": 392.58,
+          "currency": "EUR",
+          "vatIncluded": true,
+          "date": "2026-11-19"
+        }
+      ]
+    }
+  ]
+}
