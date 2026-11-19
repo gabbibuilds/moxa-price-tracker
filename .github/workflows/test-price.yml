@@ -4,13 +4,22 @@ name: Testa Moxa Price Tracker
 on:
   workflow_dispatch:
 
+permissions:
+  contents: write
+
+concurrency:
+  group: moxa-price-history
+  cancel-in-progress: false
+
 jobs:
   test-price:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Hämta projektets filer
+      - name: Hamta projektets filer
         uses: actions/checkout@v4
+        with:
+          persist-credentials: true
 
       - name: Installera Python
         uses: actions/setup-python@v5
@@ -20,5 +29,20 @@ jobs:
       - name: Installera bibliotek
         run: pip install requests beautifulsoup4
 
-      - name: Kör prisprogrammet
+      - name: Kor prisprogrammet
         run: python price_tracker.py
+
+      - name: Spara prishistoriken i GitHub
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add price_history.csv
+
+          if git diff --cached --quiet; then
+            echo "Inga nya priser att spara."
+          else
+            git commit -m "Uppdatera Moxa prishistorik"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
