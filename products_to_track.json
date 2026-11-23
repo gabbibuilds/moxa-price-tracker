@@ -1,0 +1,13 @@
+
+{
+  "products": [
+    {
+      "sku": "NPORT-5110",
+      "name": "Moxa NPort 5110",
+      "category": "Seriella enheter",
+      "urls": {
+        "distry": "https://moxa.distry.shop/dispositivi-server-e-seriali/nport-5110-moxa/"
+      }
+    }
+  ]
+}
