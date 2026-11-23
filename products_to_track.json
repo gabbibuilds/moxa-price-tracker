@@ -12,7 +12,9 @@
       "sku": "EDR-8010-2GSFP",
       "name": "Moxa EDR-8010-2GSFP",
       "category": "Switchar och routrar",
-      "urls": {}
+      "urls": {
+        "distry": "https://moxa.distry.shop/router-industriali/edr-8010-2gsfp-moxa/"
+      }
     },
     {
       "sku": "MGATE-MB3180",
@@ -26,7 +28,9 @@
       "sku": "DB9F-TO-TB",
       "name": "Moxa Mini DB9F-to-TB",
       "category": "Tillbehör",
-      "urls": {}
+      "urls": {
+        "distry": "https://moxa.distry.shop/accessori/mini-db9f-to-tb-moxa/"
+      }
     },
     {
       "sku": "UPORT-1110",
@@ -49,7 +53,9 @@
       "sku": "UPORT-1150",
       "name": "Moxa UPort 1150",
       "category": "USB till seriell",
-      "urls": {}
+      "urls": {
+        "distry": "https://moxa.distry.shop/convertitori/uport-1150-moxa/"
+      }
     },
     {
       "sku": "TCC-82",
@@ -113,7 +119,9 @@
       "sku": "NPORT-5250A",
       "name": "Moxa NPort 5250A",
       "category": "Seriella enheter",
-      "urls": {}
+      "urls": {
+        "distry": "https://moxa.distry.shop/dispositivi-server-e-seriali/nport-5250a-moxa/"
+      }
     },
     {
       "sku": "IOLOGIK-E1214",
@@ -135,7 +143,9 @@
       "sku": "NPORT-P5150A",
       "name": "Moxa NPort P5150A",
       "category": "Seriella enheter",
-      "urls": {}
+      "urls": {
+        "distry": "https://moxa.distry.shop/dispositivi-server-e-seriali/nport-p5150a-moxa/"
+      }
     },
     {
       "sku": "TCF-142-S-SC",
@@ -147,31 +157,41 @@
       "sku": "TCC-100I",
       "name": "Moxa TCC-100I",
       "category": "Seriella enheter",
-      "urls": {}
+      "urls": {
+        "distry": "https://moxa.distry.shop/convertitori/tcc-100i-moxa/"
+      }
     },
     {
       "sku": "UPORT-1150I",
       "name": "Moxa UPort 1150I",
       "category": "USB till seriell",
-      "urls": {}
+      "urls": {
+        "distry": "https://moxa.distry.shop/convertitori/uport-1150i-moxa/"
+      }
     },
     {
       "sku": "UPORT-1250-G2",
       "name": "Moxa UPort 1250-G2",
       "category": "USB till seriell",
-      "urls": {}
+      "urls": {
+        "distry": "https://moxa.distry.shop/convertitori/uport-1250-g2-moxa/"
+      }
     },
     {
       "sku": "AWK-3131A-EU",
       "name": "Moxa AWK-3131A-EU",
       "category": "Trådlöst",
-      "urls": {}
+      "urls": {
+        "distry": "https://moxa.distry.shop/wireless/awk-3131a-eu-moxa/"
+      }
     },
     {
       "sku": "EDS-2008-EL",
       "name": "Moxa EDS-2008-EL",
       "category": "Switchar",
-      "urls": {}
+      "urls": {
+        "distry": "https://moxa.distry.shop/serie-eds-2008/eds-2008-el-moxa/"
+      }
     }
   ]
 }
