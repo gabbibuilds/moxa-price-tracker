@@ -1,6 +1,7 @@
 
 import csv
 import json
+import re
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -10,52 +11,144 @@ from bs4 import BeautifulSoup
 PRODUCT_FILE = Path("products_to_track.json")
 HISTORY_FILE = Path("price_history.csv")
 
-FIELDNAMES = [
+FIELDS = [
     "date", "product", "sku", "retailer",
     "price", "currency", "vat", "url"
 ]
 
+RETAILERS = {
+    "distry": "Moxa Distry Shop",
+    "rs_distrelec": "RS / Distrelec"
+}
 
-def get_distry_price(url):
+
+def fetch_page(url):
     response = requests.get(
         url,
-        headers={"User-Agent": "MoxaPriceTracker/0.1"},
-        timeout=20
+        headers={
+            "User-Agent": "Mozilla/5.0",
+            "Accept-Language": "sv-SE,sv;q=0.9,en;q=0.8"
+        },
+        timeout=25
     )
     response.raise_for_status()
+    return BeautifulSoup(response.text, "html.parser")
 
-    soup = BeautifulSoup(response.text, "html.parser")
-    wrapper = soup.select_one(".mds_price_wrapper")
 
-    if not wrapper:
-        raise ValueError("Kunde inte hitta prisområdet.")
+def parse_price(text):
+    value = re.sub(r"[^\d,.]", "", str(text))
 
-    element = wrapper.select_one(
+    if not value:
+        raise ValueError("Priset saknar siffror.")
+
+    if "," in value and "." in value:
+        if value.rfind(",") > value.rfind("."):
+            value = value.replace(".", "").replace(",", ".")
+        else:
+            value = value.replace(",", "")
+    elif "," in value:
+        value = value.replace(",", ".")
+
+    price = float(value)
+
+    if not 0 < price < 1000000:
+        raise ValueError("Orimligt pris.")
+
+    return price
+
+
+def get_distry_price(soup, sku):
+    element = soup.select_one(
+        ".mds_price_wrapper "
         "#mds_price_value .woocommerce-Price-amount"
     )
 
     if not element:
-        raise ValueError("Kunde inte hitta aktuellt pris.")
+        raise ValueError("Distry-priset hittades inte.")
 
-    price_text = element.get_text(strip=True)
-    price_text = (
-        price_text.replace("€", "")
-        .replace("\u00a0", "")
-        .replace("\u202f", "")
-        .replace(".", "")
-        .replace(",", ".")
-        .strip()
+    return parse_price(element.get_text(" ", strip=True)), "EUR"
+
+
+def get_rs_price(soup, sku):
+    # Kontrollera att rätt Moxa-artikel finns på sidan.
+    page = re.sub(
+        r"[^A-Z0-9]", "",
+        soup.get_text(" ", strip=True).upper()
+    )
+    expected = re.sub(r"[^A-Z0-9]", "", sku.upper())
+
+    if expected not in page:
+        raise ValueError(
+            "Artikelnumret kunde inte verifieras."
+        )
+
+    # Försök hitta produktens pris i JSON-LD.
+    for script in soup.select(
+        'script[type="application/ld+json"]'
+    ):
+        try:
+            data = json.loads(script.string or script.get_text())
+        except (ValueError, TypeError):
+            continue
+
+        objects = data if isinstance(data, list) else [data]
+
+        for obj in objects:
+            if not isinstance(obj, dict):
+                continue
+
+            if "@graph" in obj:
+                objects.extend(obj["@graph"])
+
+            offers = obj.get("offers")
+            if not offers:
+                continue
+
+            if isinstance(offers, dict):
+                offers = [offers]
+
+            for offer in offers:
+                if not isinstance(offer, dict):
+                    continue
+
+                amount = offer.get("price")
+                currency = offer.get("priceCurrency")
+
+                if amount is None or currency != "SEK":
+                    continue
+
+                # JSON-LD anger inte alltid momsstatus.
+                # Därför sparar vi inte priset utan
+                # uttrycklig verifiering.
+                vat = offer.get("valueAddedTaxIncluded")
+
+                if vat is not False:
+                    continue
+
+                return parse_price(amount), "SEK"
+
+    raise ValueError(
+        "Inget verifierat RS-pris exkl. moms hittades."
     )
 
-    return float(price_text)
+
+def collect(retailer, url, sku):
+    soup = fetch_page(url)
+
+    if retailer == "distry":
+        return get_distry_price(soup, sku)
+
+    if retailer == "rs_distrelec":
+        return get_rs_price(soup, sku)
+
+    raise ValueError(
+        f"Prisavläsare saknas för {retailer}."
+    )
 
 
 def main():
     with PRODUCT_FILE.open(encoding="utf-8") as file:
-        config = json.load(file)
-
-    products = config["products"]
-    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+        products = json.load(file)["products"]
 
     history = []
 
@@ -65,29 +158,26 @@ def main():
         ) as file:
             history = list(csv.DictReader(file))
 
+    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     successful = 0
     failed = 0
 
     for product in products:
         for retailer, url in product.get("urls", {}).items():
-
-            if retailer != "distry":
-                print(
-                    f"Hoppar över {retailer}: "
-                    "prisavläsare saknas ännu."
-                )
-                continue
-
             try:
-                price = get_distry_price(url)
+                price, currency = collect(
+                    retailer, url, product["sku"]
+                )
 
                 record = {
                     "date": today,
                     "product": product["name"],
                     "sku": product["sku"],
-                    "retailer": "Moxa Distry Shop",
+                    "retailer": RETAILERS.get(
+                        retailer, retailer
+                    ),
                     "price": price,
-                    "currency": "EUR",
+                    "currency": currency,
                     "vat": "excluded",
                     "url": url
                 }
@@ -95,7 +185,7 @@ def main():
                 history = [
                     row for row in history
                     if not (
-                        row["date"] == record["date"]
+                        row["date"] == today
                         and row["sku"] == record["sku"]
                         and row["retailer"] == record["retailer"]
                     )
@@ -105,27 +195,30 @@ def main():
                 successful += 1
 
                 print(
-                    f"OK: {product['sku']} – "
-                    f"{price:.2f} EUR – Moxa Distry Shop"
+                    f"OK: {record['sku']} | "
+                    f"{record['retailer']} | "
+                    f"{price:.2f} {currency}"
                 )
 
-            except (requests.RequestException, ValueError) as error:
+            except (
+                requests.RequestException,
+                ValueError,
+                TypeError
+            ) as error:
                 failed += 1
                 print(
-                    f"FEL: {product['sku']} – {error}"
+                    f"FEL: {product['sku']} | "
+                    f"{retailer} | {error}"
                 )
 
     if successful == 0:
         raise RuntimeError(
-            "Inga priser kunde hämtas. "
-            "Prishistoriken ändras inte."
+            "Inga priser kunde hämtas."
         )
 
     history.sort(
         key=lambda row: (
-            row["date"],
-            row["sku"],
-            row["retailer"]
+            row["date"], row["sku"], row["retailer"]
         )
     )
 
@@ -133,7 +226,7 @@ def main():
         "w", newline="", encoding="utf-8"
     ) as file:
         writer = csv.DictWriter(
-            file, fieldnames=FIELDNAMES
+            file, fieldnames=FIELDS
         )
         writer.writeheader()
         writer.writerows(history)
@@ -143,7 +236,7 @@ def main():
     print("-----------------------------")
     print("Lyckade prisinsamlingar:", successful)
     print("Misslyckade prisinsamlingar:", failed)
-    print("Totalt antal prisregistreringar:", len(history))
+    print("Totalt i prishistoriken:", len(history))
     print("-----------------------------")
 
 
