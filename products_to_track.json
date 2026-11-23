@@ -1,29 +1,177 @@
 {
   "products": [
-    {"sku": "EDS-2005-ELP", "name": "Moxa EDS-2005-ELP", "category": "Switchar", "urls": {}},
-    {"sku": "EDR-8010-2GSFP", "name": "Moxa EDR-8010-2GSFP", "category": "Switchar och routrar", "urls": {}},
-    {"sku": "MGATE-MB3180", "name": "Moxa MGate MB3180", "category": "Gateways", "urls": {}},
-    {"sku": "DB9F-TO-TB", "name": "Moxa Mini DB9F-to-TB", "category": "Tillbehör", "urls": {}},
-    {"sku": "UPORT-1110", "name": "Moxa UPort 1110", "category": "USB till seriell", "urls": {}},
-    {"sku": "NPORT-5110", "name": "Moxa NPort 5110", "category": "Seriella enheter", "urls": {"distry": "https://moxa.distry.shop/dispositivi-server-e-seriali/nport-5110-moxa/", "rs_distrelec": "https://se.rs-online.com/web/p/seriella-enhetsservrar/2551999"}},
-    {"sku": "UPORT-1150", "name": "Moxa UPort 1150", "category": "USB till seriell", "urls": {}},
-    {"sku": "TCC-82", "name": "Moxa TCC-82", "category": "Seriella enheter", "urls": {}},
-    {"sku": "MGATE-MB3170", "name": "Moxa MGate MB3170", "category": "Gateways", "urls": {}},
-    {"sku": "IOLOGIK-E1212", "name": "Moxa ioLogik E1212", "category": "Fjärr-I/O", "urls": {}},
-    {"sku": "EDS-208", "name": "Moxa EDS-208", "category": "Switchar", "urls": {}},
-    {"sku": "NPORT-5130A", "name": "Moxa NPort 5130A", "category": "Seriella enheter", "urls": {}},
-    {"sku": "MGATE-MB3280", "name": "Moxa MGate MB3280", "category": "Gateways", "urls": {}},
-    {"sku": "ICF-1180I-M-ST", "name": "Moxa ICF-1180I-M-ST", "category": "Fiberomvandlare", "urls": {}},
-    {"sku": "EDS-2008-ELP", "name": "Moxa EDS-2008-ELP", "category": "Switchar", "urls": {}},
-    {"sku": "NPORT-5250A", "name": "Moxa NPort 5250A", "category": "Seriella enheter", "urls": {}},
-    {"sku": "IOLOGIK-E1214", "name": "Moxa ioLogik E1214", "category": "Fjärr-I/O", "urls": {}},
-    {"sku": "EDS-2005-EL", "name": "Moxa EDS-2005-EL", "category": "Switchar", "urls": {}},
-    {"sku": "NPORT-P5150A", "name": "Moxa NPort P5150A", "category": "Seriella enheter", "urls": {}},
-    {"sku": "TCF-142-S-SC", "name": "Moxa TCF-142-S-SC", "category": "Fiberomvandlare", "urls": {}},
-    {"sku": "TCC-100I", "name": "Moxa TCC-100I", "category": "Seriella enheter", "urls": {}},
-    {"sku": "UPORT-1150I", "name": "Moxa UPort 1150I", "category": "USB till seriell", "urls": {}},
-    {"sku": "UPORT-1250-G2", "name": "Moxa UPort 1250-G2", "category": "USB till seriell", "urls": {}},
-    {"sku": "AWK-3131A-EU", "name": "Moxa AWK-3131A-EU", "category": "Trådlöst", "urls": {}},
-    {"sku": "EDS-2008-EL", "name": "Moxa EDS-2008-EL", "category": "Switchar", "urls": {}}
+    {
+      "sku": "EDS-2005-ELP",
+      "name": "Moxa EDS-2005-ELP",
+      "category": "Switchar",
+      "urls": {
+        "distry": "https://moxa.distry.shop/serie-eds-2005/eds-2005-elp-moxa/"
+      }
+    },
+    {
+      "sku": "EDR-8010-2GSFP",
+      "name": "Moxa EDR-8010-2GSFP",
+      "category": "Switchar och routrar",
+      "urls": {}
+    },
+    {
+      "sku": "MGATE-MB3180",
+      "name": "Moxa MGate MB3180",
+      "category": "Gateways",
+      "urls": {
+        "distry": "https://moxa.distry.shop/gateway-di-protocollo/mgate-mb3180-moxa/"
+      }
+    },
+    {
+      "sku": "DB9F-TO-TB",
+      "name": "Moxa Mini DB9F-to-TB",
+      "category": "Tillbehör",
+      "urls": {}
+    },
+    {
+      "sku": "UPORT-1110",
+      "name": "Moxa UPort 1110",
+      "category": "USB till seriell",
+      "urls": {
+        "distry": "https://moxa.distry.shop/convertitori/uport-1110-moxa/"
+      }
+    },
+    {
+      "sku": "NPORT-5110",
+      "name": "Moxa NPort 5110",
+      "category": "Seriella enheter",
+      "urls": {
+        "distry": "https://moxa.distry.shop/dispositivi-server-e-seriali/nport-5110-moxa/",
+        "rs_distrelec": "https://se.rs-online.com/web/p/seriella-enhetsservrar/2551999"
+      }
+    },
+    {
+      "sku": "UPORT-1150",
+      "name": "Moxa UPort 1150",
+      "category": "USB till seriell",
+      "urls": {}
+    },
+    {
+      "sku": "TCC-82",
+      "name": "Moxa TCC-82",
+      "category": "Seriella enheter",
+      "urls": {}
+    },
+    {
+      "sku": "MGATE-MB3170",
+      "name": "Moxa MGate MB3170",
+      "category": "Gateways",
+      "urls": {
+        "distry": "https://moxa.distry.shop/gateway-di-protocollo/mgate-mb3170-moxa/"
+      }
+    },
+    {
+      "sku": "IOLOGIK-E1212",
+      "name": "Moxa ioLogik E1212",
+      "category": "Fjärr-I/O",
+      "urls": {
+        "distry": "https://moxa.distry.shop/controller/iologik-e1212-moxa/"
+      }
+    },
+    {
+      "sku": "EDS-208",
+      "name": "Moxa EDS-208",
+      "category": "Switchar",
+      "urls": {
+        "distry": "https://moxa.distry.shop/switch-industriali/eds-208-moxa/"
+      }
+    },
+    {
+      "sku": "NPORT-5130A",
+      "name": "Moxa NPort 5130A",
+      "category": "Seriella enheter",
+      "urls": {
+        "distry": "https://moxa.distry.shop/dispositivi-server-e-seriali/nport-5130a-moxa/"
+      }
+    },
+    {
+      "sku": "MGATE-MB3280",
+      "name": "Moxa MGate MB3280",
+      "category": "Gateways",
+      "urls": {
+        "distry": "https://moxa.distry.shop/gateway-di-protocollo/mgate-mb3280-moxa/"
+      }
+    },
+    {
+      "sku": "ICF-1180I-M-ST",
+      "name": "Moxa ICF-1180I-M-ST",
+      "category": "Fiberomvandlare",
+      "urls": {}
+    },
+    {
+      "sku": "EDS-2008-ELP",
+      "name": "Moxa EDS-2008-ELP",
+      "category": "Switchar",
+      "urls": {}
+    },
+    {
+      "sku": "NPORT-5250A",
+      "name": "Moxa NPort 5250A",
+      "category": "Seriella enheter",
+      "urls": {}
+    },
+    {
+      "sku": "IOLOGIK-E1214",
+      "name": "Moxa ioLogik E1214",
+      "category": "Fjärr-I/O",
+      "urls": {
+        "distry": "https://moxa.distry.shop/controller/iologik-e1214-moxa/"
+      }
+    },
+    {
+      "sku": "EDS-2005-EL",
+      "name": "Moxa EDS-2005-EL",
+      "category": "Switchar",
+      "urls": {
+        "distry": "https://moxa.distry.shop/serie-eds-2005/eds-2005-el-moxa/"
+      }
+    },
+    {
+      "sku": "NPORT-P5150A",
+      "name": "Moxa NPort P5150A",
+      "category": "Seriella enheter",
+      "urls": {}
+    },
+    {
+      "sku": "TCF-142-S-SC",
+      "name": "Moxa TCF-142-S-SC",
+      "category": "Fiberomvandlare",
+      "urls": {}
+    },
+    {
+      "sku": "TCC-100I",
+      "name": "Moxa TCC-100I",
+      "category": "Seriella enheter",
+      "urls": {}
+    },
+    {
+      "sku": "UPORT-1150I",
+      "name": "Moxa UPort 1150I",
+      "category": "USB till seriell",
+      "urls": {}
+    },
+    {
+      "sku": "UPORT-1250-G2",
+      "name": "Moxa UPort 1250-G2",
+      "category": "USB till seriell",
+      "urls": {}
+    },
+    {
+      "sku": "AWK-3131A-EU",
+      "name": "Moxa AWK-3131A-EU",
+      "category": "Trådlöst",
+      "urls": {}
+    },
+    {
+      "sku": "EDS-2008-EL",
+      "name": "Moxa EDS-2008-EL",
+      "category": "Switchar",
+      "urls": {}
+    }
   ]
 }
