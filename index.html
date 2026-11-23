@@ -1,197 +1,138 @@
 <!DOCTYPE html>
-<html lang="sv">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Moxa Price Tracker v2</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap">
-<style>
-:root{
-  --accent:#951111; --accent-soft:#f7e6e6; --bg:#f7f6f4; --card:#ffffff; --text:#1d1b1b; --muted:#6b6666; --line:#e6e2e0; --good:#1f6b3a;
-  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
-}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--accent:#e06a6a;--accent-soft:#3a1c1c;--bg:#161414;--card:#201d1d;--text:#f1eeee;--muted:#a8a1a1;--line:#352f2f;--good:#6fcf97}}
-:root[data-theme="dark"]{color-scheme:dark;--accent:#e06a6a;--accent-soft:#3a1c1c;--bg:#161414;--card:#201d1d;--text:#f1eeee;--muted:#a8a1a1;--line:#352f2f;--good:#6fcf97}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 "IBM Plex Sans",system-ui,sans-serif}
-.wrap{max-width:1180px;margin:0 auto;padding:20px 16px 40px}
-header{margin-bottom:14px;border-left:6px solid var(--accent);padding-left:14px}
-h1{font-size:1.6rem;line-height:1.2;margin:0;font-weight:600}
-header p{margin:2px 0 0;color:var(--muted);font-size:.9rem}
-.banner{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 14px;margin-bottom:16px;font-size:.88rem}
-.src{font-weight:600;border-radius:99px;padding:2px 10px;border:1px solid var(--line)}
-.src.file{color:var(--good);border-color:var(--good)}
-.src.emb{color:var(--accent);border-color:var(--accent)}
-.warn{flex-basis:100%;color:var(--accent)}
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:16px}
-.stat{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:14px 16px}
-.stat b{display:block;font-size:1.7rem;font-weight:600;line-height:1.2}
-.stat span{color:var(--muted);font-size:.85rem}
-.stat.hot{border-color:var(--accent);background:var(--accent-soft)}
-.stat.hot b{color:var(--accent)}
-.filters{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px}
-.filters input,.filters select,.filters button{font:inherit;color:var(--text);background:var(--card);border:1px solid var(--line);border-radius:8px;padding:9px 12px;min-height:40px}
-.filters input{flex:1 1 220px}
-.filters select{flex:1 1 160px}
-.filters button{cursor:pointer;color:var(--accent);border-color:var(--accent)}
-.filters :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.tablebox{background:var(--card);border:1px solid var(--line);border-radius:8px;overflow-x:auto;max-width:100%}
-table{border-collapse:collapse;width:100%;min-width:860px}
-th,td{padding:11px 14px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
-th:first-child,td:first-child{text-align:left;position:sticky;left:0;background:var(--card);white-space:normal;min-width:210px}
-th{font-weight:600;font-size:.85rem;color:var(--muted);background:var(--card)}
-tbody tr:last-child td{border-bottom:0}
-td small{display:block;color:var(--muted);font-size:.78rem}
-.name{font-weight:500}
-.cat{color:var(--muted);font-size:.78rem}
-.our{font-weight:600}
-.low{background:var(--accent-soft);color:var(--accent);font-weight:600}
-.low small{color:var(--accent)}
-.na{color:var(--muted)}
-.chip{display:inline-block;border-radius:99px;padding:2px 10px;font-weight:600;font-size:.85rem;border:1px solid var(--line)}
-.chip.bad{background:var(--accent);border-color:var(--accent);color:#fff}
-.chip.ok{color:var(--good);border-color:var(--good)}
-.empty{padding:32px;text-align:center;color:var(--muted)}
-.note{margin-top:14px;color:var(--muted);font-size:.82rem}
-.note i{display:inline-block;width:12px;height:12px;background:var(--accent-soft);border:1px solid var(--accent);border-radius:3px;vertical-align:-1px}
-</style>
-</head>
-<body>
-<div class="wrap">
-  <header>
-    <h1>Moxa Price Tracker</h1>
-    <p>Version 2. Jämför våra priser med europeiska återförsäljare. Exempeldata, inga riktiga priser.</p>
-  </header>
+<html lang="sv"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>Moxa Price Tracker v7</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/><style>
+:root{--red:#951111;--redlight:#fff0ef;--ink:#19242c;--muted:#71808c;--line:#e6eaed;--bg:#f5f7f8;--green:#17805a}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:'DM Sans',sans-serif;font-size:14px}button,input,select{font:inherit}button{cursor:pointer}.app{display:flex;min-height:100vh}.side{width:232px;flex:none;background:#fff;border-right:1px solid var(--line);padding:29px 17px;display:flex;flex-direction:column;gap:32px}.brand{display:flex;gap:11px;align-items:center;padding:0 8px}.brandmark{background:var(--red);color:white;border-radius:12px;width:39px;height:39px;display:grid;place-items:center;font:800 20px Manrope}.brand b{font:800 16px Manrope;letter-spacing:-.6px}.brand small{display:block;color:var(--muted);font-size:11px}.navtitle{color:#9ba7af;font-size:10px;letter-spacing:1.6px;font-weight:800;padding:0 13px;margin-bottom:10px}.navitem{display:flex;align-items:center;gap:12px;padding:12px 13px;border-radius:10px;color:#667680;font-weight:700}.navitem.active{background:#fbefef;color:var(--red)}.sidefoot{margin-top:auto;border-top:1px solid var(--line);padding:20px 12px 0;color:var(--muted);font-size:12px;line-height:1.7}.main{width:100%;min-width:0;max-width:1530px;margin:auto;padding:35px 43px 55px}.top{display:flex;justify-content:space-between;align-items:center;gap:20px;margin-bottom:28px}.eyebrow{font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:800;color:var(--red)}h1{font:800 clamp(24px,3vw,32px)/1.3 Manrope;margin:6px 0}p{margin:0}.sub{color:var(--muted)}.pill{background:#fff;border:1px solid var(--line);border-radius:100px;padding:9px 14px;color:#53636e;font-size:12px;white-space:nowrap}.dot{display:inline-block;width:7px;height:7px;background:var(--green);border-radius:50%;margin-right:7px}.notice{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:14px 18px;background:#fff;border:1px solid var(--line);border-radius:13px;margin-bottom:22px;color:#65737e;font-size:12px}.notice strong{color:var(--green)}.warning{color:var(--red);font-weight:700}.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-bottom:24px}.stat{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px 21px;min-height:145px;box-shadow:0 5px 20px #1b303a05}.stat-top{display:flex;align-items:center;justify-content:space-between;color:#667784;font-size:12px;font-weight:700;gap:5px}.stat-icon{font-size:17px;width:32px;height:32px;background:#f3f5f6;border-radius:9px;display:grid;place-items:center}.stat b{font:800 29px Manrope;display:block;margin:15px 0 5px;letter-spacing:-1.5px}.stat small{color:var(--muted);font-size:11px}.stat.alert{background:#fff9f8;border-color:#f2d6d4}.stat.alert b{color:var(--red)}.section{background:white;border:1px solid var(--line);border-radius:17px;box-shadow:0 5px 24px #172e3805;overflow:hidden}.sectionhead{padding:24px 24px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}.sectionhead h2{font:800 17px Manrope;margin:0 0 5px}.sectionhead p{font-size:12px;color:var(--muted)}.filters{display:flex;gap:9px;flex-wrap:wrap;padding:0 24px 21px}.filters input,.filters select{background:#fafbfc;border:1px solid var(--line);border-radius:9px;padding:12px 13px;min-height:43px;color:#384751;outline-color:var(--red)}.filters input{flex:2 1 220px}.filters select{flex:1 1 140px;max-width:220px}.reset{border:1px solid #e6d6d6;color:var(--red);background:white;border-radius:9px;padding:10px 13px}.tablewrap{overflow:auto}table{border-collapse:collapse;width:100%;min-width:760px}th{text-align:left;font-size:10px;letter-spacing:.8px;text-transform:uppercase;color:#8996a0;background:#fafbfc;padding:14px 22px;border-block:1px solid var(--line)}td{padding:18px 22px;border-bottom:1px solid #edf0f1;vertical-align:middle}tbody tr{cursor:pointer;transition:background .15s}tbody tr:hover{background:#fafbfc}tbody tr:last-child td{border-bottom:0}.product{font-weight:800;font-size:13px}.sku{color:#8b98a1;font-size:11px;margin-top:5px}.price{font-weight:800;white-space:nowrap}.muted{color:var(--muted)}.tag{display:inline-block;padding:6px 10px;border-radius:7px;font-size:11px;font-weight:800;white-space:nowrap}.bad{background:#fff0ef;color:#a62929}.good{background:#e8f7ef;color:#14734b}.neutral{background:#f0f3f5;color:#647581}.action{color:var(--red);font-weight:800;font-size:12px;white-space:nowrap}.footnote{padding:17px 24px;color:#9aa5ac;font-size:11px;border-top:1px solid var(--line)}.empty{padding:30px;text-align:center;color:var(--muted)}.modalbg{position:fixed;inset:0;background:#14232c99;display:none;align-items:center;justify-content:center;padding:20px;z-index:10}.modalbg.open{display:flex}.modal{background:#fff;border-radius:20px;max-width:670px;width:100%;max-height:88vh;overflow:auto;padding:29px;box-shadow:0 30px 80px #09172040}.modalhead{display:flex;justify-content:space-between;gap:15px;align-items:start;margin-bottom:23px}.modal h2{font:800 22px Manrope;margin:5px 0}.close{border:0;background:#f1f3f4;border-radius:9px;font-size:23px;width:36px;height:36px}.compare{display:flex;flex-direction:column;gap:10px}.comparison{display:grid;grid-template-columns:145px 1fr auto;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}.barbg{background:#edf1f3;border-radius:100px;height:9px;overflow:hidden}.bar{height:100%;background:#8b9da8;border-radius:100px}.bar.cheap{background:var(--red)}.compare small{display:block;color:var(--muted);font-size:11px}.modalprice{font-weight:800;text-align:right}.modalprice small{font-weight:400}.summary{padding:16px;background:#f7f8f9;border-radius:11px;margin-bottom:17px}.summary strong{font:800 19px Manrope}.summary small{display:block;color:var(--muted);margin-top:5px}@media(max-width:1050px){.side{width:190px}.main{padding:28px 22px}.stats{grid-template-columns:repeat(2,1fr)}}@media(max-width:680px){.app{display:block}.side{width:100%;padding:13px 17px;display:block}.side nav,.sidefoot{display:none}.brandmark{width:32px;height:32px}.main{padding:23px 14px}.top{align-items:start;flex-direction:column;gap:10px}.stats{gap:9px}.stat{padding:14px;min-height:125px}.stat b{font-size:24px}.sectionhead,.filters{padding-left:14px;padding-right:14px}.comparison{grid-template-columns:100px 1fr auto;gap:7px}.modal{padding:20px}}
+.attention{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:#7d2020;padding:9px 12px;background:#fff7f7;border:1px solid #ead3d3;border-radius:9px;white-space:nowrap;cursor:pointer}.attention input{accent-color:#951111;width:16px;height:16px}.filters #sort{min-width:185px}.date-label{color:#66737b!important;font-size:11px!important;margin-top:3px}.priority-hint{padding:10px 20px;color:#66737b;font-size:12px;border-top:1px solid #e7eaed}.filters{align-items:center}@media(max-width:680px){.attention{width:100%}.filters #sort{width:100%}}
 
-  <div class="banner" id="banner">Läser in data …</div>
-  <section class="stats" id="stats" aria-live="polite"></section>
+.side nav{display:flex;flex-direction:column;gap:4px}.navitem{border:0;background:transparent;text-align:left;width:100%;cursor:pointer;font-size:13px}.navitem:hover{background:#f5f6f7;color:var(--ink)}.navitem.active:hover{background:#fbefef;color:var(--red)}.navitem:focus-visible{outline:2px solid var(--red);outline-offset:2px}.view[hidden],#overview-content[hidden]{display:none!important}.data-content{padding:0 24px 25px}.data-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:20px}.data-card{padding:17px;background:#f8fafb;border:1px solid var(--line);border-radius:12px}.data-card b{display:block;font:800 23px Manrope;margin-bottom:5px}.data-card small{color:var(--muted)}.data-content h3{font:800 15px Manrope;margin:23px 0 12px}.data-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}.data-list-item{border:1px solid var(--line);border-radius:10px;padding:13px}.data-list-item small{display:block;color:var(--muted);margin-top:5px}.history-empty{text-align:center;padding:60px 20px;max-width:560px;margin:auto}.history-empty h3{font:800 19px Manrope;margin:14px 0}.history-empty p{color:var(--muted);line-height:1.7;margin:12px 0}.history-icon{display:inline-grid;place-items:center;width:62px;height:62px;border-radius:18px;background:#fff0ef;color:var(--red);font-size:29px}#comparison-content table{min-width:950px}#comparison-content tbody tr{cursor:pointer}#comparison-content tbody tr:hover{background:#fafbfc}@media(max-width:680px){.side nav{display:flex;flex-direction:row;overflow-x:auto;margin-top:12px;gap:5px}.side .navtitle{display:none}.side .navitem{width:auto;flex:none;padding:9px 10px;font-size:11px}.data-content{padding:0 14px 20px}}
 
-  <section class="filters">
-    <input id="q" type="search" placeholder="Sök produkt eller artikelnummer" aria-label="Sök">
-    <select id="cat" aria-label="Produktkategori"></select>
-    <select id="ret" aria-label="Återförsäljare"></select>
-    <button id="reset" type="button">Rensa filter</button>
-  </section>
-
-  <div class="tablebox"><table>
-    <thead><tr id="head"></tr></thead>
-    <tbody id="body"></tbody>
-  </table></div>
-  <div class="empty" id="empty" hidden>Inga produkter matchar. Rensa filtren eller prova en annan sökning.</div>
-  <p class="note"><i></i> Markerad cell: återförsäljaren har lägre pris än vi. Prisskillnad = lägsta konkurrentpris jämfört med vårt pris.</p>
-  <p class="note" id="fxnote"></p>
-</div>
-
-<!-- Inbäddad reservkopia av products.json. Används när filen inte kan läsas (till exempel i Claude). -->
-<script type="application/json" id="embedded">{"updatedAt":"2026-11-19","note":"Påhittade exempelpriser. Inga riktiga priser.","settings":{"baseCurrency":"EUR","ratesDate":"2026-11-19","exchangeRates":{"EUR":1,"SEK":11.0,"GBP":0.86}},"retailers":[{"id":"dustin","name":"Dustin","country":"SE","vatRate":0.25},{"id":"elfa-distrelec","name":"Elfa Distrelec","country":"SE","vatRate":0.25},{"id":"rs-components","name":"RS Components","country":"GB","vatRate":0.2},{"id":"farnell","name":"Farnell","country":"GB","vatRate":0.2},{"id":"conrad","name":"Conrad","country":"DE","vatRate":0.19}],"products":[{"sku":"EDS-205A","name":"Switch 5 portar, ohanterad","category":"Switchar","ourPrice":{"amount":62.0,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},"competitorPrices":[{"retailerId":"dustin","amount":58.9,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},{"retailerId":"elfa-distrelec","amount":64.5,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},{"retailerId":"rs-components","amount":61.2,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},{"retailerId":"farnell","amount":66.0,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},{"retailerId":"conrad","amount":59.8,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"}]},{"sku":"EDS-308","name":"Switch 8 portar, ohanterad","category":"Switchar","ourPrice":{"amount":89.0,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},"competitorPrices":[{"retailerId":"dustin","amount":92.4,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},{"retailerId":"elfa-distrelec","amount":1197.63,"currency":"SEK","vatIncluded":true,"date":"2026-11-19"},{"retailerId":"rs-components","amount":90.5,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},{"retailerId":"conrad","amount":94.0,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"}]},{"sku":"EDS-508A","name":"Switch 8 portar, hanterad","category":"Switchar","ourPrice":{"amount":215.0,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},"competitorPrices":[{"retailerId":"dustin","amount":228.0,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},{"retailerId":"elfa-distrelec","amount":219.9,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},{"retailerId":"rs-components","amount":209.5,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},{"retailerId":"farnell","amount":231.0,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"}]},{"sku":"NPort 5110","name":"Seriell enhetsserver, 1 port","category":"Seriella enheter","ourPrice":{"amount":74.0,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},"competitorPrices":[{"retailerId":"dustin","amount":79.9,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},{"retailerId":"elfa-distrelec","amount":71.8,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},{"retailerId":"rs-components","amount":78.0,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},{"retailerId":"farnell","amount":82.5,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},{"retailerId":"conrad","amount":76.4,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"}]},{"sku":"NPort 5150A","name":"Seriell enhetsserver, 1 port, PoE","category":"Seriella enheter","ourPrice":{"amount":98.0,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},"competitorPrices":[{"retailerId":"dustin","amount":104.0,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},{"retailerId":"rs-components","amount":101.3,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},{"retailerId":"farnell","amount":106.9,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},{"retailerId":"conrad","amount":99.5,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"}]},{"sku":"MGate MB3170","name":"Modbus-gateway, 2 portar","category":"Gateways","ourPrice":{"amount":355.0,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},"competitorPrices":[{"retailerId":"dustin","amount":369.0,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},{"retailerId":"elfa-distrelec","amount":361.5,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},{"retailerId":"rs-components","amount":372.0,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},{"retailerId":"farnell","amount":349.9,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},{"retailerId":"conrad","amount":380.0,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"}]},{"sku":"ioLogik E1212","name":"Fjärr-I/O, 8 DI + 8 DIO","category":"Fjärr-I/O","ourPrice":{"amount":186.0,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},"competitorPrices":[{"retailerId":"dustin","amount":198.0,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},{"retailerId":"elfa-distrelec","amount":190.4,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},{"retailerId":"farnell","amount":201.0,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},{"retailerId":"conrad","amount":183.9,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"}]},{"sku":"AWK-1137C","name":"Trådlös klient, industriell","category":"Trådlöst","ourPrice":{"amount":312.0,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},"competitorPrices":[{"retailerId":"dustin","amount":334.0,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},{"retailerId":"elfa-distrelec","amount":325.0,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},{"retailerId":"rs-components","amount":318.6,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},{"retailerId":"farnell","amount":340.0,"currency":"EUR","vatIncluded":false,"date":"2026-11-19"},{"retailerId":"conrad","amount":392.58,"currency":"EUR","vatIncluded":true,"date":"2026-11-19"}]}]}</script>
-
-<script>
-const $ = id => document.getElementById(id);
-const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-let D, BASE = "EUR";
-
-const fmt = (n, cur) => { try { return n.toLocaleString("sv-SE",{style:"currency",currency:cur}); } catch(e){ return n + " " + cur; } };
-const pct = n => (n>0?"+":n<0?"−":"") + Math.abs(n).toLocaleString("sv-SE",{minimumFractionDigits:1,maximumFractionDigits:1}) + " %";
-
-/* Räknar om ett pris till basvalutan (EUR) exklusive moms. Returnerar {ok, v, conv} eller {ok:false, why}. */
-function norm(p, retailer){
-  const rates = D.settings.exchangeRates;
-  if(typeof p.amount !== "number" || !p.currency) return {ok:false, why:"Belopp eller valuta saknas"};
-  const rate = rates[p.currency];
-  if(!rate) return {ok:false, why:"Växelkurs för " + p.currency + " saknas"};
-  if(typeof p.vatIncluded !== "boolean") return {ok:false, why:"Momsstatus saknas"};
-  let net = p.amount;
-  if(p.vatIncluded){
-    const vr = p.vatRate ?? retailer.vatRate;
-    if(vr == null) return {ok:false, why:"Momssats saknas"};
-    net = p.amount / (1 + vr);
-  }
-  return {ok:true, v:net / rate, conv: p.currency !== BASE || p.vatIncluded};
-}
-
-function valid(j){
-  return j && Array.isArray(j.retailers) && Array.isArray(j.products) && j.settings && j.settings.exchangeRates && j.settings.baseCurrency;
-}
-
-async function load(){
-  let data = null, source = "emb", warn = "";
-  try{
-    const ctl = new AbortController(), t = setTimeout(()=>ctl.abort(), 3000);
-    const res = await fetch("products.json", {signal:ctl.signal, cache:"no-cache"});
-    clearTimeout(t);
-    if(res.ok){
-      const j = await res.json();
-      if(valid(j)){ data = j; source = "file"; }
-      else warn = "products.json hittades men har fel format. Visar inbäddad exempeldata.";
-    }
-  }catch(e){ /* filen kan inte läsas här: använd inbäddad data */ }
-  if(!data) data = JSON.parse($("embedded").textContent);
-  D = data; BASE = D.settings.baseCurrency;
-
-  const date = new Date(D.updatedAt + "T00:00:00").toLocaleDateString("sv-SE",{day:"numeric",month:"long",year:"numeric"});
-  $("banner").innerHTML =
-    `<span class="src ${source}">${source==="file" ? "Data från products.json" : "Inbäddad exempeldata"}</span>` +
-    `<span>Priser uppdaterade ${esc(date)}</span>` +
-    `<span>Jämförs i ${esc(BASE)} exklusive moms</span>` +
-    (source==="emb" ? `<span class="na">products.json används automatiskt när appen ligger på GitHub Pages.</span>` : "") +
-    (warn ? `<span class="warn">${esc(warn)}</span>` : "");
-  $("fxnote").textContent = "Priser i annan valuta eller inklusive moms räknas om (⇄) med växelkurserna i datafilen" +
-    (D.settings.ratesDate ? " (kurser från " + D.settings.ratesDate + ", exempelvärden)" : "") +
-    ". Saknas kurs eller momssats jämförs priset inte.";
-
-  const cats = [...new Set(D.products.map(x=>x.category))];
-  $("cat").innerHTML = '<option value="">Alla kategorier</option>' + cats.map(c=>`<option>${esc(c)}</option>`).join("");
-  $("ret").innerHTML = '<option value="">Alla återförsäljare</option>' + D.retailers.map(r=>`<option value="${esc(r.id)}">${esc(r.name)}</option>`).join("");
-  render();
-}
-
+/* v7: skalbar jämförelse med fasta kolumner */
+#comparison-content .comparison-filters{align-items:center}
+#comparison-content .comparison-filters input[type="search"]{flex:2 1 210px}
+#comparison-content .comparison-filters select{flex:1 1 160px;max-width:none}
+.cmp-check{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;color:#53636e;white-space:nowrap;padding:8px 0}
+.cmp-check input{accent-color:var(--red);width:16px;height:16px}
+#comparison-content .compact-table{min-width:720px}
+#comparison-content .compact-table td,#comparison-content .compact-table th{padding:15px 16px}
+#comparison-content .compact-table td:first-child{min-width:180px}
+.cmp-retname{display:block;font-size:11px;color:var(--muted);font-weight:500;margin-top:4px}
+.cmp-link{border:0;background:transparent;color:var(--red);font-weight:800;padding:6px 0;white-space:nowrap}
+#comparison-content .compact-table tbody tr:focus-visible{outline:2px solid var(--red);outline-offset:-2px}
+@media(max-width:680px){#comparison-content .comparison-filters select{max-width:none;flex:1 1 140px}.cmp-check{white-space:normal}}
+</style></head><body><div class="app"><aside class="side"><div class="brand"><div class="brandmark">M</div><div><b>MOXA TRACKER</b><small>Price intelligence</small></div></div><nav aria-label="Workspace"><div class="navtitle">WORKSPACE</div><button class="navitem active" data-view="overview" type="button">▦   Översikt</button><button class="navitem" data-view="comparison" type="button">◫   Prisjämförelse</button><button class="navitem" data-view="history" type="button">↗   Prishistorik</button></nav><div class="sidefoot">● Version 7.1 · Live-data<br/>Priser från GitHub Actions</div></aside><main class="main"><div class="top"><div><div class="eyebrow">Market intelligence / Dashboard</div><h1>Prisöversikt</h1><p class="sub">Följ prispositionen för Moxa-produkter hos europeiska återförsäljare.</p></div><div class="pill"><span class="dot"></span>Automatisk prisinsamling</div></div><div class="notice" id="notice">Läser in data…</div><div id="overview-content"><div class="stats" id="stats"></div><section class="section"><div class="sectionhead"><div><h2>Produktjämförelse</h2><p>Klicka på en produkt för att se priser hos alla återförsäljare.</p></div><span class="pill" id="count">0 produkter</span></div><div class="filters"><input aria-label="Sök produkt" id="q" placeholder="⌕  Sök produkt eller artikelnummer…" type="search"/><select aria-label="Kategori" id="cat"></select><select aria-label="Återförsäljare" id="ret"></select><select aria-label="Sortera produkter" id="sort"><option value="risk">Störst prispress först</option><option value="name">Produktnamn A–Ö</option><option value="gap-asc">Lägsta prisskillnad först</option><option value="gap-desc">Högsta prisskillnad först</option></select><label class="attention"><input id="attention" type="checkbox"/> Kräver uppmärksamhet</label><button class="reset" id="reset">Rensa filter</button></div><div class="tablewrap"><table><thead><tr><th>Produkt</th><th>Vårt pris</th><th>Lägsta konkurrent</th><th>Återförsäljare</th><th>Prisskillnad</th><th></th></tr></thead><tbody id="rows"></tbody></table></div><div class="empty" hidden="" id="empty">Inga produkter matchar din sökning.</div><div class="footnote">Endast verifierade insamlade priser visas. Vårt försäljningspris är inte anslutet. Valutor jämförs inte utan verifierad växelkurs.</div></section></div><section class="section view" hidden="" id="comparison-content"><div class="sectionhead"><div><h2>Jämför produkter och konkurrenter</h2><p>En rad per produkt. Välj återförsäljare eller öppna en produkt för alla priser, sorterade från lägst till högst.</p></div><span aria-live="polite" class="tag neutral" id="cmp-count">–</span></div>
+<div class="filters comparison-filters"><input aria-label="Sök produkter i prisjämförelsen" id="cmp-q" placeholder="Sök produkt eller artikelnummer" type="search"/><select aria-label="Filtrera kategori" id="cmp-cat"><option value="">Alla kategorier</option></select><select aria-label="Filtrera återförsäljare" id="cmp-ret"><option value="">Alla återförsäljare</option></select><select aria-label="Sortera produkter" id="cmp-sort"><option value="risk">Störst prispress först</option><option value="gap-desc">Störst prisskillnad först</option><option value="name">Produktnamn A–Ö</option><option value="retailers">Flest prisuppgifter först</option></select><label class="cmp-check"><input id="cmp-attention" type="checkbox"/> Endast billigare konkurrenter</label><button class="reset" id="cmp-reset" type="button">Rensa filter</button></div>
+<div class="tablewrap"><table class="compact-table"><thead id="matrix-head"></thead><tbody id="matrix-body"></tbody></table></div><div class="empty" hidden="" id="cmp-empty">Inga produkter matchar filtren.</div><div class="footnote">Verkliga observationer från price_history.csv. Ingen jämförelse med SCN-priser görs förrän dessa har anslutits.</div></section><section class="section view" hidden="" id="history-content"><div class="sectionhead"><div><h2>Prishistorik</h2><p>Verkliga, daterade prisobservationer från automatiska körningar.</p></div></div><div class="data-content" id="live-history"><p class="muted">Läser in registrerade prisobservationer…</p></div></section></main></div><div class="modalbg" id="overlay" role="presentation"><div aria-labelledby="modal-title" aria-modal="true" class="modal" role="dialog"><div class="modalhead"><div><div class="eyebrow">Produktanalys</div><h2 id="modal-title"></h2><p class="sub" id="modal-sub"></p></div><button aria-label="Stäng" class="close" id="close">×</button></div><div id="details"></div></div></div><script>
+const $=id=>document.getElementById(id);const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));let D,BASE='EUR';const money=n=>new Intl.NumberFormat('sv-SE',{style:'currency',currency:BASE}).format(n);const percent=n=>(n>0?'+':n<0?'−':'')+Math.abs(n).toLocaleString('sv-SE',{minimumFractionDigits:1,maximumFractionDigits:1})+' %';
+function norm(p,r={}){if(!p||typeof p.amount!=='number'||!p.currency)return {ok:false,why:'Pris saknas'};const rate=D.settings.exchangeRates[p.currency];if(typeof rate!=='number'||rate<=0)return {ok:false,why:'Växelkurs saknas'};if(typeof p.vatIncluded!=='boolean')return {ok:false,why:'Momsstatus saknas'};let net=p.amount;if(p.vatIncluded){const vat=p.vatRate??r.vatRate;if(typeof vat!=='number'||vat<0)return {ok:false,why:'Momssats saknas'};net/=1+vat}return {ok:true,v:net/rate,converted:p.vatIncluded||p.currency!==BASE}}
+function analysis(x,ret){const our=norm(x.ourPrice);const entries=(x.competitorPrices||[]).map(p=>({r:D.retailers.find(r=>r.id===p.retailerId),p})).filter(e=>e.r&&(!ret||e.r.id===ret)).map(e=>({...e,n:norm(e.p,e.r)}));const valid=entries.filter(e=>e.n.ok);const best=valid.length?valid.reduce((a,b)=>a.n.v<b.n.v?a:b):null;const diff=best&&our.ok&&our.v>0?(best.n.v-our.v)/our.v*100:null;return {our,entries,valid,best,diff}}
 function render(){
-  const q = $("q").value.trim().toLowerCase(), cat = $("cat").value, ret = $("ret").value;
-  const cols = D.retailers.filter(r => !ret || r.id === ret);
-  $("head").innerHTML = "<th>Produkt</th><th>Vårt pris</th>" + cols.map(r=>`<th>${esc(r.name)}</th>`).join("") + "<th>Prisskillnad</th>";
+ const q=$('q').value.trim().toLowerCase(),cat=$('cat').value,ret=$('ret').value,sort=$('sort').value,attention=$('attention').checked;
+ const matched=D.products.filter(x=>(!cat||x.category===cat)&&(!q||(x.name+' '+x.sku+' '+x.category).toLowerCase().includes(q)));
+ const analyzed=matched.map(x=>({x,a:analysis(x,ret)}));
+ const products=analyzed.filter(({a})=>!attention||(a.diff!==null&&a.diff<0));
+ const rank=v=>v===null?Infinity:v;
+ products.sort((a,b)=>sort==='name'?a.x.name.localeCompare(b.x.name,'sv'):sort==='gap-desc'?rank(b.a.diff)-rank(a.a.diff):rank(a.a.diff)-rank(b.a.diff));
+ let compared=0,cheaper=0,total=0,count=0;
+ const rows=products.map(({x,a})=>{compared+=a.valid.length;if(a.diff!==null){total+=a.diff;count++;if(a.diff<0)cheaper++}
+ const status=a.diff===null?'<span class="tag neutral">Ej jämförbart</span>':`<span class="tag ${a.diff<0?'bad':'good'}">${percent(a.diff)}</span>`;
+ return `<tr data-sku="${esc(x.sku)}" tabindex="0" role="button" aria-label="Visa prisjämförelse för ${esc(x.name)}"><td><div class="product">${esc(x.name)}</div><div class="sku">${esc(x.sku)} · ${esc(x.category)}</div></td><td class="price">${a.our.ok?money(a.our.v):'–'}</td><td class="price">${a.best?money(a.best.n.v):'–'}</td><td class="muted">${a.best?esc(a.best.r.name):'Saknas'}</td><td>${status}</td><td class="action">Visa detaljer ›</td></tr>`}).join('');
+ $('rows').innerHTML=rows;$('empty').hidden=products.length!==0;$('count').textContent=products.length+' produkter';
+ $('stats').innerHTML=[['Produkter',products.length,'av '+D.products.length+' i databasen','▦',''],['Prisjämförelser',compared,'jämförbara konkurrentpriser','◫',''],['Konkurrent billigare',count?cheaper:'–','kräver vårt pris för jämförelse','↘','alert'],['Genomsnittlig skillnad',count?percent(total/count):'–','mot lägsta konkurrent','↗','']].map(s=>`<div class="stat ${s[4]}"><div class="stat-top"><span>${s[0]}</span><span class="stat-icon">${s[3]}</span></div><b>${s[1]}</b><small>${s[2]}</small></div>`).join('');
+ document.querySelectorAll('tr[data-sku]').forEach(row=>{const open=()=>show(row.dataset.sku);row.addEventListener('click',open);row.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open()}})})
+}
+function show(sku,allRetailers=false){const x=D.products.find(p=>p.sku===sku);if(!x)return;const a=analysis(x,allRetailers?'':$('ret').value);$('modal-title').textContent=x.name;$('modal-sub').textContent=x.sku+' · '+x.category;const max=Math.max(a.our.ok?a.our.v:0,...a.valid.map(e=>e.n.v),1);let content=`<div class="summary"><span class="muted">Vårt pris</span><br><strong>${a.our.ok?money(a.our.v):'Kan ej jämföras'}</strong><small>${a.best?'Lägsta konkurrent: '+a.best.r.name+' · '+money(a.best.n.v):'Inga jämförbara konkurrentpriser'}</small></div><div class="compare">`;const entries=[...(a.our.ok?[{r:{name:'Vårt pris'},n:a.our,p:x.ourPrice,own:true}]:[]),...a.entries].sort((a,b)=>(a.n.ok?a.n.v:Infinity)-(b.n.ok?b.n.v:Infinity));content+=entries.map(e=>`<div class="comparison"><div><b>${esc(e.r.name)}</b><small>${e.own?'Referenspris':e.n.converted?'Omräknat från '+esc(e.p.currency)+(e.p.vatIncluded?' inkl. moms':''):'EUR exkl. moms'}</small><small class="date-label">Kontrollerat: ${esc(e.p.date||'Okänt datum')}</small></div><div class="barbg"><div class="bar ${!e.own&&a.our.ok&&e.n.ok&&e.n.v<a.our.v?'cheap':''}" style="width:${e.n.ok?Math.max(3,e.n.v/max*100):0}%"></div></div><div class="modalprice">${e.n.ok?money(e.n.v):(e.p&&e.p.amount?esc(e.p.amount+' '+e.p.currency):'–')}<small>${e.n.ok&&a.our.ok&&!e.own?percent((e.n.v-a.our.v)/a.our.v*100):e.n.ok?'':esc(e.n.why)}</small></div></div>`).join('')+'</div>';$('details').innerHTML=content;$('overlay').classList.add('open');$('close').focus()}
+function valid(j){return j&&Array.isArray(j.retailers)&&Array.isArray(j.products)&&j.settings&&j.settings.exchangeRates&&j.settings.baseCurrency}
 
-  const rows = D.products.filter(x => (!cat || x.category===cat) && (!q || (x.name+" "+x.sku+" "+x.category).toLowerCase().includes(q)));
-  let compared=0, cheaper=0, diffSum=0, diffN=0, excluded=0;
+const VIEWS={overview:{title:'Prisöversikt',sub:'Följ prispositionen för Moxa-produkter hos europeiska återförsäljare.',crumb:'Dashboard'},comparison:{title:'Prisjämförelse',sub:'Jämför varje produkt mot samtliga återförsäljare.',crumb:'Jämförelse'},history:{title:'Prishistorik',sub:'Följ hur priserna utvecklas när historiska observationer finns.',crumb:'Historik'}};
+function navigate(view){if(!VIEWS[view])return;document.querySelectorAll('[data-view]').forEach(b=>{const active=b.dataset.view===view;b.classList.toggle('active',active);b.setAttribute('aria-current',active?'page':'false')});['overview','comparison','history'].forEach(v=>$(v+'-content').hidden=v!==view);document.querySelector('.top h1').textContent=VIEWS[view].title;document.querySelector('.top .sub').textContent=VIEWS[view].sub;document.querySelector('.top .eyebrow').textContent='Market intelligence / '+VIEWS[view].crumb;if(D){if(view==='comparison')renderMatrix()}window.scrollTo({top:0,behavior:'instant'})}
+function renderMatrix(){
+ const q=$('cmp-q').value.trim().toLocaleLowerCase('sv'),cat=$('cmp-cat').value,ret=$('cmp-ret').value,sort=$('cmp-sort').value,attention=$('cmp-attention').checked;
+ const rows=D.products.map(x=>({x,a:analysis(x,ret)})).filter(({x,a})=>(!cat||x.category===cat)&&(!q||(x.name+' '+x.sku+' '+x.category).toLocaleLowerCase('sv').includes(q))&&(!ret||a.entries.length>0)&&(!attention||(a.diff!==null&&a.diff<0)));
+ const rank=n=>n===null?Infinity:n;
+ rows.sort((a,b)=>sort==='name'?a.x.name.localeCompare(b.x.name,'sv'):sort==='retailers'?b.a.valid.length-a.a.valid.length:sort==='gap-desc'?rank(b.a.diff)-rank(a.a.diff):rank(a.a.diff)-rank(b.a.diff));
+ $('cmp-count').textContent=rows.length+' av '+D.products.length+' produkter';
+ $('matrix-head').innerHTML='<tr><th>Produkt</th><th>Vårt pris</th><th>Lägsta konkurrentpris</th><th>Prisskillnad</th><th>Jämförbara priser</th><th>Detaljer</th></tr>';
+ $('matrix-body').innerHTML=rows.map(({x,a})=>{const diff=a.diff===null?'<span class="tag neutral">–</span>':`<span class="tag ${a.diff<0?'bad':'good'}">${percent(a.diff)}</span>`;return `<tr tabindex="0" role="button" aria-label="Visa prisjämförelse för ${esc(x.sku)}" data-matrix-sku="${esc(x.sku)}"><td><div class="product">${esc(x.name)}</div><div class="sku">${esc(x.sku)} · ${esc(x.category)}</div></td><td class="price">${a.our.ok?money(a.our.v):'–'}</td><td class="price">${a.best?money(a.best.n.v)+'<span class="cmp-retname">'+esc(a.best.r.name)+'</span>':'–'}</td><td>${diff}</td><td>${a.valid.length}${a.entries.length>a.valid.length?'<span class="cmp-retname">'+(a.entries.length-a.valid.length)+' ej jämförbara</span>':''}</td><td><button class="cmp-link" type="button" data-open-sku="${esc(x.sku)}">Visa alla →</button></td></tr>`}).join('');
+ $('cmp-empty').hidden=rows.length>0;
+ document.querySelectorAll('[data-matrix-sku]').forEach(row=>{const open=()=>show(row.dataset.matrixSku,true);row.addEventListener('click',open);row.addEventListener('keydown',e=>{if(e.target!==row)return;if(e.key==='Enter'||e.key===' '){e.preventDefault();open()}})});
+ document.querySelectorAll('[data-open-sku]').forEach(b=>b.addEventListener('click',e=>{e.stopPropagation();show(b.dataset.openSku,true)}));
+}
+document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>navigate(b.dataset.view)));
 
-  $("body").innerHTML = rows.map(x=>{
-    const our = norm(x.ourPrice, {});
-    const byR = {};
-    (x.competitorPrices||[]).forEach(p => byR[p.retailerId] = p);
-    const vals = [];
-    const cells = cols.map(r=>{
-      const p = byR[r.id];
-      if(!p) return '<td class="na">Saknas</td>';
-      const n = norm(p, r);
-      if(!n.ok){ excluded++; return `<td class="na">${esc(fmt(p.amount,p.currency))}<small>Kan ej jämföras</small><small>${esc(n.why)}</small></td>`; }
-      vals.push(n.v);
-      const info = n.conv ? `<small>⇄ ${p.vatIncluded?"inkl. moms, ":""}≈ ${fmt(n.v,BASE)} ex moms</small>` : "";
-      if(!our.ok) return `<td>${fmt(p.amount,p.currency)}${info}</td>`;
-      const d = (n.v-our.v)/our.v*100, low = n.v < our.v;
-      return `<td class="${low?"low":""}">${low?"▼ ":""}${fmt(p.amount,p.currency)}<small>${pct(d)}</small>${info}</td>`;
-    }).join("");
-
-    let chip = '<span class="na">–</span>';
-    if(our.ok && vals.length){
-      const best = Math.min(...vals), diff = (best-our.v)/our.v*100;
-      compared += vals.length; diffSum += diff; diffN++; if(best < our.v) cheaper++;
-      chip = `<span class="chip ${diff<0?"bad":"ok"}">${pct(diff)}</span>`;
-    }
-    return `<tr><td><span class="name">${esc(x.name)}</span><small>${esc(x.sku)}</small><span class="cat">${esc(x.category)}</span></td><td class="our">${fmt(x.ourPrice.amount,x.ourPrice.currency)}</td>${cells}<td>${chip}</td></tr>`;
-  }).join("");
-
-  $("empty").hidden = rows.length > 0;
-  const avg = diffN ? pct(diffSum/diffN) : "–";
-  $("stats").innerHTML =
-    `<div class="stat"><b>${rows.length}</b><span>Produkter visas av ${D.products.length}</span></div>
-     <div class="stat"><b>${compared}</b><span>Prisjämförelser${excluded ? " ("+excluded+" kan ej jämföras)" : ""}</span></div>
-     <div class="stat ${cheaper?"hot":""}"><b>${cheaper}</b><span>Produkter där en konkurrent är billigare</span></div>
-     <div class="stat"><b>${avg}</b><span>Genomsnittlig skillnad mot lägsta konkurrent</span></div>`;
+['cmp-q','cmp-cat','cmp-ret','cmp-sort','cmp-attention'].forEach(id=>$(id).addEventListener('input',()=>D&&renderMatrix()));$('cmp-reset').addEventListener('click',()=>{$('cmp-q').value='';$('cmp-cat').value='';$('cmp-ret').value='';$('cmp-sort').value='risk';$('cmp-attention').checked=false;renderMatrix()});['q','cat','ret','sort','attention'].forEach(id=>$(id).addEventListener('input',()=>D&&render()));$('reset').addEventListener('click',()=>{$('q').value='';$('cat').value='';$('ret').value='';$('sort').value='risk';$('attention').checked=false;render()});$('close').addEventListener('click',()=>$('overlay').classList.remove('open'));$('overlay').addEventListener('click',e=>{if(e.target===$('overlay'))$('overlay').classList.remove('open')});document.addEventListener('keydown',e=>{if(e.key==='Escape')$('overlay').classList.remove('open')});
+// v7.1: Real GitHub CSV data. No fictitious prices or exchange rates.
+const FALLBACK_CATALOG = {"products":[{"sku":"EDS-2005-ELP","name":"Moxa EDS-2005-ELP","category":"Switchar","urls":{"distry":"https://moxa.distry.shop/serie-eds-2005/eds-2005-elp-moxa/"}},{"sku":"EDR-8010-2GSFP","name":"Moxa EDR-8010-2GSFP","category":"Switchar och routrar","urls":{}},{"sku":"MGATE-MB3180","name":"Moxa MGate MB3180","category":"Gateways","urls":{"distry":"https://moxa.distry.shop/gateway-di-protocollo/mgate-mb3180-moxa/"}},{"sku":"DB9F-TO-TB","name":"Moxa Mini DB9F-to-TB","category":"Tillbehör","urls":{}},{"sku":"UPORT-1110","name":"Moxa UPort 1110","category":"USB till seriell","urls":{"distry":"https://moxa.distry.shop/convertitori/uport-1110-moxa/"}},{"sku":"NPORT-5110","name":"Moxa NPort 5110","category":"Seriella enheter","urls":{"distry":"https://moxa.distry.shop/dispositivi-server-e-seriali/nport-5110-moxa/","rs_distrelec":"https://se.rs-online.com/web/p/seriella-enhetsservrar/2551999"}},{"sku":"UPORT-1150","name":"Moxa UPort 1150","category":"USB till seriell","urls":{}},{"sku":"TCC-82","name":"Moxa TCC-82","category":"Seriella enheter","urls":{}},{"sku":"MGATE-MB3170","name":"Moxa MGate MB3170","category":"Gateways","urls":{"distry":"https://moxa.distry.shop/gateway-di-protocollo/mgate-mb3170-moxa/"}},{"sku":"IOLOGIK-E1212","name":"Moxa ioLogik E1212","category":"Fjärr-I/O","urls":{"distry":"https://moxa.distry.shop/controller/iologik-e1212-moxa/"}},{"sku":"EDS-208","name":"Moxa EDS-208","category":"Switchar","urls":{"distry":"https://moxa.distry.shop/switch-industriali/eds-208-moxa/"}},{"sku":"NPORT-5130A","name":"Moxa NPort 5130A","category":"Seriella enheter","urls":{"distry":"https://moxa.distry.shop/dispositivi-server-e-seriali/nport-5130a-moxa/"}},{"sku":"MGATE-MB3280","name":"Moxa MGate MB3280","category":"Gateways","urls":{"distry":"https://moxa.distry.shop/gateway-di-protocollo/mgate-mb3280-moxa/"}},{"sku":"ICF-1180I-M-ST","name":"Moxa ICF-1180I-M-ST","category":"Fiberomvandlare","urls":{}},{"sku":"EDS-2008-ELP","name":"Moxa EDS-2008-ELP","category":"Switchar","urls":{}},{"sku":"NPORT-5250A","name":"Moxa NPort 5250A","category":"Seriella enheter","urls":{}},{"sku":"IOLOGIK-E1214","name":"Moxa ioLogik E1214","category":"Fjärr-I/O","urls":{"distry":"https://moxa.distry.shop/controller/iologik-e1214-moxa/"}},{"sku":"EDS-2005-EL","name":"Moxa EDS-2005-EL","category":"Switchar","urls":{"distry":"https://moxa.distry.shop/serie-eds-2005/eds-2005-el-moxa/"}},{"sku":"NPORT-P5150A","name":"Moxa NPort P5150A","category":"Seriella enheter","urls":{}},{"sku":"TCF-142-S-SC","name":"Moxa TCF-142-S-SC","category":"Fiberomvandlare","urls":{}},{"sku":"TCC-100I","name":"Moxa TCC-100I","category":"Seriella enheter","urls":{}},{"sku":"UPORT-1150I","name":"Moxa UPort 1150I","category":"USB till seriell","urls":{}},{"sku":"UPORT-1250-G2","name":"Moxa UPort 1250-G2","category":"USB till seriell","urls":{}},{"sku":"AWK-3131A-EU","name":"Moxa AWK-3131A-EU","category":"Trådlöst","urls":{}},{"sku":"EDS-2008-EL","name":"Moxa EDS-2008-EL","category":"Switchar","urls":{}}]};
+const RETAILER_LABELS = {'Moxa Distry Shop':'Moxa Distry Shop','RS / Distrelec':'RS / Distrelec'};
+let OBSERVATIONS=[];
+function csvRows(raw){
+ const out=[];let row=[],cell='',quote=false;
+ raw=raw.replace(/^\uFEFF/,'');
+ for(let i=0;i<raw.length;i++){const c=raw[i];
+  if(c==='"'){if(quote&&raw[i+1]==='"'){cell+='"';i++}else quote=!quote}
+  else if(c===','&&!quote){row.push(cell);cell=''}
+  else if((c==='\n'||c==='\r')&&!quote){if(c==='\r'&&raw[i+1]==='\n')i++;row.push(cell);if(row.some(x=>x!==''))out.push(row);row=[];cell=''}
+  else cell+=c;
+ }
+ if(cell||row.length){row.push(cell);out.push(row)}
+ if(!out.length)return [];
+ const keys=out.shift().map(x=>x.trim());
+ return out.map(row=>Object.fromEntries(keys.map((k,i)=>[k,row[i]||''])));
+}
+function canonical(s){return String(s||'').toUpperCase().replace(/[^A-Z0-9]/g,'')}
+async function fetchOptional(path){
+ const response=await fetch(path+'?v='+Date.now(),{cache:'no-store'});
+ if(!response.ok)throw new Error(path+': HTTP '+response.status);
+ return response;
+}
+function populateFilters(){
+ $('cat').innerHTML='<option value="">Alla kategorier</option>'+[...new Set(D.products.map(x=>x.category))].map(c=>`<option value="${esc(c)}">${esc(c)}</option>`).join('');
+ $('ret').innerHTML='<option value="">Alla återförsäljare</option>'+D.retailers.map(r=>`<option value="${esc(r.id)}">${esc(r.name)}</option>`).join('');
+ $('cmp-cat').innerHTML=$('cat').innerHTML;$('cmp-ret').innerHTML=$('ret').innerHTML;
+}
+async function loadLive(){
+ let catalog=FALLBACK_CATALOG,warning=[];
+ try{const remote=await (await fetchOptional('products_to_track.json')).json();
+  if(Array.isArray(remote.products)&&remote.products.length)catalog=remote;
+  else warning.push('Produktlistan har fel format');
+ }catch(e){warning.push('Produktlistan kunde inte läsas – visar medföljande 25 produkter')}
+ try{OBSERVATIONS=csvRows(await (await fetchOptional('price_history.csv')).text()).filter(r=>r.date&&r.sku&&r.retailer&&Number(r.price)>0&&r.currency);
+ }catch(e){warning.push('Prishistoriken kunde inte hämtas: '+e.message)}
+ const bySku=new Map(catalog.products.map(p=>[canonical(p.sku),{...p,ourPrice:null,competitorPrices:[]}]));
+ const retailers=new Map();
+ for(const row of OBSERVATIONS){
+  const id=canonical(row.sku),retailer=row.retailer;
+  if(!bySku.has(id))bySku.set(id,{sku:row.sku,name:row.product||row.sku,category:'Övrigt',ourPrice:null,competitorPrices:[]});
+  if(!retailers.has(retailer))retailers.set(retailer,{id:retailer,name:RETAILER_LABELS[retailer]||retailer,vatRate:0});
+ }
+ // Keep only the newest observation per SKU and retailer.
+ const latest=new Map();
+ for(const row of OBSERVATIONS){
+  const key=canonical(row.sku)+'|'+row.retailer;
+  if(!latest.has(key)||row.date>=latest.get(key).date)latest.set(key,row);
+ }
+ for(const row of latest.values()){
+  bySku.get(canonical(row.sku)).competitorPrices.push({
+   retailerId:row.retailer,amount:Number(row.price),currency:row.currency,
+   vatIncluded:false,date:row.date,url:row.url||''
+  });
+ }
+ D={updatedAt:OBSERVATIONS.map(x=>x.date).sort().at(-1)||null,
+  settings:{baseCurrency:'EUR',exchangeRates:{EUR:1}},
+  retailers:[...retailers.values()],products:[...bySku.values()]};
+ BASE='EUR';populateFilters();render();renderHistoryLive();
+ const date=D.updatedAt||'ännu inget registrerat pris';
+ $('notice').innerHTML=`<span><strong>● Verklig prisdata</strong> · Senaste observation: ${esc(date)}</span><span>${OBSERVATIONS.length} historiska observationer · ${latest.size} aktuella prisposter · ${D.retailers.length} återförsäljare</span>${warning.length?'<span class="warning">'+esc(warning.join(' · '))+'</span>':''}`;
+ document.querySelector('.pill').innerHTML='<span class="dot"></span>Live · CSV';
+}
+function renderHistoryLive(){
+ const root=$('live-history');
+ if(!OBSERVATIONS.length){root.innerHTML='<div class="history-empty"><h3>Inga riktiga priser registrerade ännu</h3><p>Kör GitHub Actions för att fylla price_history.csv. Inga exempelpriser visas.</p></div>';return}
+ const rows=[...OBSERVATIONS].sort((a,b)=>b.date.localeCompare(a.date)||a.sku.localeCompare(b.sku));
+ const unique=new Set(rows.map(r=>canonical(r.sku))).size;
+ root.innerHTML=`<div class="data-grid"><div class="data-card"><b>${rows.length}</b><small>Prisobservationer</small></div><div class="data-card"><b>${unique}</b><small>Produkter med pris</small></div><div class="data-card"><b>${new Set(rows.map(r=>r.retailer)).size}</b><small>Återförsäljare med pris</small></div></div>
+ <div class="tablewrap"><table><thead><tr><th>Datum</th><th>Produkt</th><th>Återförsäljare</th><th>Pris exkl. moms</th><th>Källa</th></tr></thead><tbody>
+ ${rows.map(r=>`<tr><td>${esc(r.date)}</td><td><div class="product">${esc(r.product||r.sku)}</div><div class="sku">${esc(r.sku)}</div></td><td>${esc(r.retailer)}</td><td class="price">${esc(Number(r.price).toLocaleString('sv-SE',{minimumFractionDigits:2,maximumFractionDigits:2}))} ${esc(r.currency)}</td><td>${/^https?:\/\//.test(r.url||'')?`<a href="${esc(r.url)}" target="_blank" rel="noopener noreferrer">Produktsida ↗</a>`:'–'}</td></tr>`).join('')}</tbody></table></div>
+ <p class="footnote">Observationer sparas per datum, artikel och återförsäljare. Samma pris kan förekomma flera dagar.</p>`;
 }
 
-["q","cat","ret"].forEach(id => $(id).addEventListener("input", () => D && render()));
-$("reset").addEventListener("click", () => { $("q").value=""; $("cat").value=""; $("ret").value=""; D && render(); });
-load();
-</script>
-</body>
-</html>
+loadLive();
+</script></body></html>
